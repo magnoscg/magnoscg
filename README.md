@@ -27,12 +27,13 @@ interfaces that remain accessible and responsive across Apple platforms.
 
 ## Selected work
 
-I'm currently preparing public, production-safe editions and engineering case
-studies for:
+Public editions and engineering case studies — the linked ones are up, the rest
+are in preparation:
 
-- **AnvilCLI** — iOS project scaffolding with Clean Architecture, MVVM, and
+- **[AnvilCLI](https://github.com/magnoscg/anvil)** — iOS project scaffolding with Clean Architecture, MVVM, and
   Router navigation
-- **Hilo** — a localized daily word game for iPhone and iPad
+- **[Hilo](https://github.com/magnoscg/hilo-case-study)** — a localized daily word
+  game for iPhone and iPad, with a case study on how it was built and localized
 - **CholloGas** — an offline-first fuel price app using Spain's public MITECO
   data
 - **DocGenMCP** — an MCP documentation engine for Swift and iOS codebases
