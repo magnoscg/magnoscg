@@ -14,10 +14,12 @@ The product code for Hilo and CholloGas stays private. Their public material
 shows the architecture, trade-offs, testing, operations, and measurable
 engineering outcomes without exposing the products themselves.
 
-- **[CholloGas](https://chollogas.ogamlabs.com)** — an offline-first fuel-price
-  product published on the App Store, backed by a TypeScript API, PostgreSQL,
+- **CholloGas** — [product site](https://chollogas.ogamlabs.com) ·
+  [App Store](https://apps.apple.com/es/app/chollogas-gasolineras-baratas/id6773014516)
+  — an offline-first fuel-price product backed by a TypeScript API, PostgreSQL,
   and an operational MITECO data pipeline
-- **[Hilo case study](https://github.com/magnoscg/hilo-case-study)** — how a
+- **Hilo** — [product site](https://hilo.ogamlabs.com) ·
+  [engineering case study](https://github.com/magnoscg/hilo-case-study) — how a
   private SwiftUI word game reached 4,015 puzzles, 11 App Store locales, 1,128
   tests, and a documented release-asset pipeline
 - **[AnvilCLI](https://github.com/magnoscg/anvil)** — an open-source Go CLI for
