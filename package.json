@@ -1,0 +1,9 @@
+{
+  "name": "magnoscg-profile",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test scripts/validate-profile.test.mjs",
+    "validate": "node scripts/validate-profile.mjs"
+  }
+}

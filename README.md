@@ -1,64 +1,59 @@
-# Hi, I'm Oscar
+![Oscar Canton — Senior iOS Engineer and Software Architect](assets/profile-banner.png)
 
-Senior iOS Engineer building and operating production apps, product backends,
-and developer tools with Swift, SwiftUI, Go, and TypeScript.
+I build and operate iOS products end to end: the interface people use, the
+architecture that keeps it maintainable, and the backend and release systems
+that keep it running.
 
-**[Portfolio](https://ogamlabs.com)** · **[LinkedIn](https://www.linkedin.com/in/oscarcantongarcia/)**
+**[Portfolio](https://ogamlabs.com)** ·
+**[LinkedIn](https://www.linkedin.com/in/oscarcantongarcia/)** ·
+**[Contact](mailto:soporte@ogamlabs.com)**
 
-I work across the full product path: the interface people use, the architecture
-that keeps it maintainable, and the backend and deployment that keep it running.
+## Selected work
 
-## Public proof
+- **CholloGas — production iOS, backend, and data operations.**
+  [Product site](https://chollogas.ogamlabs.com) ·
+  [App Store](https://apps.apple.com/es/app/chollogas-gasolineras-baratas/id6773014516)  
+  Backed by a TypeScript API, PostgreSQL, and an operational MITECO ingestion
+  pipeline.
+- **Hilo — pre-release SwiftUI product and release pipeline.**
+  [Product site](https://hilo.ogamlabs.com) ·
+  [Engineering case study](https://github.com/magnoscg/hilo-case-study)  
+  4,015 original puzzles, 11 store locales, 1,128 passing tests, and a
+  documented asset pipeline.
+- **AnvilCLI — open-source iOS developer tooling.**
+  [Code and releases](https://github.com/magnoscg/anvil)  
+  A Go CLI that scaffolds iOS projects with Clean Architecture, MVVM, Router
+  navigation, golden tests, and optional AI coding packs.
 
-The product code for Hilo and CholloGas stays private. Their public material
-shows the architecture, trade-offs, testing, operations, and measurable
+The product code for Hilo and CholloGas remains private. Their public material
+documents architecture, trade-offs, testing, operations, and measurable
 engineering outcomes without exposing the products themselves.
-
-- **CholloGas** — [product site](https://chollogas.ogamlabs.com) ·
-  [App Store](https://apps.apple.com/es/app/chollogas-gasolineras-baratas/id6773014516)
-  — an offline-first fuel-price product backed by a TypeScript API, PostgreSQL,
-  and an operational MITECO data pipeline
-- **Hilo** — [product site](https://hilo.ogamlabs.com) ·
-  [engineering case study](https://github.com/magnoscg/hilo-case-study) — how a
-  private SwiftUI word game reached 4,015 puzzles, 11 App Store locales, 1,128
-  tests, and a documented release-asset pipeline
-- **[AnvilCLI](https://github.com/magnoscg/anvil)** — an open-source Go CLI for
-  iOS project scaffolding with Clean Architecture, MVVM, Router navigation,
-  golden tests, releases, and optional AI coding packs
 
 ## AI-assisted engineering in development
 
-- **PRDPlanner** *(public edition in preparation)* — a PRD → plan → build
-  workflow with bounded context, dependency-aware phases, parallel
-  verification, adversarial review, and explicit human gates
-- **HarnessHub** *(local beta)* — a local-first composer for compatible skills,
-  subagents, plugins, and MCPs that produces reproducible multi-harness bundles
-  without installing or executing their contents
+- **PRDPlanner** — a PRD → plan → build workflow with bounded context,
+  dependency-aware phases, parallel verification, adversarial review, and
+  explicit human gates. A public edition is in preparation.
+- **HarnessHub** — a local-first composer for compatible skills, subagents,
+  plugins, and MCPs that produces reproducible multi-harness bundles without
+  installing or executing their contents. Currently in local beta.
 
-These projects stay clearly labelled as in development until their public
-editions can provide the same level of evidence as the work above.
+These projects remain labelled as in development until their public editions
+can provide the same level of evidence as the work above.
 
-## What I work with
+## Engineering focus
 
 - **Apple platforms:** Swift 6, SwiftUI, UIKit, Observation, SwiftData,
-  StoreKit 2, WidgetKit, App Intents
+  StoreKit 2, WidgetKit, and App Intents
 - **Architecture:** Clean Architecture, MVVM, Router/Coordinator, modular SPM
-  packages, dependency injection
-- **Engineering quality:** Swift Testing, XCTest, strict concurrency,
-  accessibility, performance profiling, CI/CD
-- **AI-assisted engineering:** agent orchestration, bounded context,
-  verification pipelines, human gates, and local-first tooling
-- **Developer tooling:** Go and TypeScript CLIs, MCP servers, code generation,
-  reproducible bundles, and documentation automation
+  packages, and dependency injection
+- **Quality:** Swift Testing, XCTest, strict concurrency, accessibility,
+  performance profiling, and CI/CD
+- **Product systems:** Go and TypeScript tooling, APIs, PostgreSQL, data
+  pipelines, code generation, MCP servers, and release automation
 
-## Principles
+I value simple designs, explicit trade-offs, tests that protect behaviour, and
+documentation that makes engineering decisions reviewable.
 
-```text
-Simple over clever.
-Product decisions belong in the architecture.
-Tests should protect behavior, not implementation details.
-Documentation is part of delivery.
-```
-
-Open to conversations about senior iOS engineering, technical leadership, and
-developer tooling.
+Based in Madrid. Open to conversations about senior iOS engineering, technical
+leadership, software architecture, and developer tooling.
