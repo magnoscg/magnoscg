@@ -1,7 +1,9 @@
 # Hi, I'm Oscar
 
-Senior iOS Engineer building production apps and developer tools with Swift,
-SwiftUI, and Clean Architecture.
+Senior iOS Engineer building and operating production apps, product backends,
+and developer tools with Swift, SwiftUI, Go, and TypeScript.
+
+**[Portfolio](https://ogamlabs.com)** · **[LinkedIn](https://www.linkedin.com/in/oscarcantongarcia/)**
 
 I care about code that stays understandable as products grow: explicit
 boundaries, predictable navigation, strict concurrency, useful tests, and
@@ -15,8 +17,10 @@ interfaces that remain accessible and responsive across Apple platforms.
   packages, dependency injection
 - **Engineering quality:** Swift Testing, XCTest, strict concurrency,
   accessibility, performance profiling, CI/CD
+- **AI-assisted engineering:** agent orchestration, bounded context, verification
+  pipelines, human gates, and local-first tooling
 - **Developer tooling:** Go and TypeScript CLIs, MCP servers, code generation,
-  documentation automation
+  reproducible bundles, and documentation automation
 
 ## Current focus
 
@@ -27,21 +31,30 @@ interfaces that remain accessible and responsive across Apple platforms.
 
 ## Selected work
 
-Public editions and engineering case studies — the linked ones are up, the rest
-are in preparation:
+The product code for Hilo and CholloGas stays private. Their public material
+shows the architecture, trade-offs, testing, operations, and measurable
+engineering outcomes without exposing the products themselves.
+
+### Products and case studies
+
+- **[Hilo case study](https://github.com/magnoscg/hilo-case-study)** — a daily
+  word game for iPhone and iPad, built for 11 App Store locales with 4,015
+  puzzles and a fully documented release-asset pipeline
+- **[CholloGas](https://chollogas.ogamlabs.com)** — an offline-first fuel-price
+  product backed by a TypeScript API, PostgreSQL, and an operational data
+  pipeline; its dedicated engineering case study is in preparation
+
+### Open source and AI developer tooling
 
 - **[AnvilCLI](https://github.com/magnoscg/anvil)** — iOS project scaffolding with Clean Architecture, MVVM, and
-  Router navigation
-- **[Hilo](https://github.com/magnoscg/hilo-case-study)** — a localized daily word
-  game for iPhone and iPad, with a case study on how it was built and localized
-- **CholloGas** — an offline-first fuel price app using Spain's public MITECO
-  data
-- **DocGenMCP** — an MCP documentation engine for Swift and iOS codebases
-- **HarnessHub** — a local-first catalogue and bundle composer for coding
-  harness assets
-
-Private product code stays private; the public material focuses on architecture,
-trade-offs, testing, accessibility, and measurable engineering outcomes.
+  Router navigation, golden tests, releases, and optional AI coding packs
+- **PRDPlanner** *(public edition in preparation)* — a PRD → plan → build
+  workflow with 10 specialised agents, 14 entry-point skills, parallel
+  verification, adversarial review, and bounded correction
+- **HarnessHub** *(local beta)* — a local-first composer that resolves and
+  packages compatible skills, subagents, plugins, and MCPs into reproducible
+  multi-harness bundles without executing their contents; its current gate
+  passes 322 automated tests and 16 Chromium/WebKit E2E scenarios
 
 ## Principles
 
