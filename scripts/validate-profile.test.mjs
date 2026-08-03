@@ -73,14 +73,24 @@ test('in-development products cannot lose their status labels', async (t) => {
   assert(result.errors.some((error) => error.includes('PRDPlanner needs')));
 });
 
-test('Hilo cannot be presented as already released', async (t) => {
+test('Hilo cannot regress to a pre-release status', async (t) => {
   const fixture = await makeFixture(t);
   const readmePath = join(fixture, 'README.md');
   const markdown = await readFile(readmePath, 'utf8');
-  await writeFile(readmePath, markdown.replace('pre-release SwiftUI', 'released SwiftUI'));
+  await writeFile(readmePath, markdown.replace('published SwiftUI', 'pre-release SwiftUI'));
 
   const result = await validateProfile(fixture);
   assert(result.errors.some((error) => error.includes('Hilo must remain')));
+});
+
+test('Anvil public evidence cannot drift away from its verified totals', async (t) => {
+  const fixture = await makeFixture(t);
+  const readmePath = join(fixture, 'README.md');
+  const markdown = await readFile(readmePath, 'utf8');
+  await writeFile(readmePath, markdown.replace('421 automated tests', '420 automated tests'));
+
+  const result = await validateProfile(fixture);
+  assert(result.errors.some((error) => error.includes('421 automated tests')));
 });
 
 test('the CV remains disconnected while it is under revision', async (t) => {
@@ -91,6 +101,19 @@ test('the CV remains disconnected while it is under revision', async (t) => {
 
   const result = await validateProfile(fixture);
   assert(result.errors.some((error) => error.includes('CV must stay disconnected')));
+});
+
+test('the CholloGas case study remains disconnected until it is public', async (t) => {
+  const fixture = await makeFixture(t);
+  const readmePath = join(fixture, 'README.md');
+  const markdown = await readFile(readmePath, 'utf8');
+  await writeFile(
+    readmePath,
+    `${markdown}\n[Engineering case study](https://github.com/magnoscg/chollogas-case-study)\n`,
+  );
+
+  const result = await validateProfile(fixture);
+  assert(result.errors.some((error) => error.includes('CholloGas case study must stay disconnected')));
 });
 
 test('the banner dimensions cannot drift', async (t) => {

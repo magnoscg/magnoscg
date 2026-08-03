@@ -12,18 +12,24 @@ that keep it running.
 
 - **CholloGas — production iOS, backend, and data operations.**
   [Product site](https://chollogas.ogamlabs.com) ·
-  [App Store](https://apps.apple.com/es/app/chollogas-gasolineras-baratas/id6773014516)  
+  [App Store](https://apps.apple.com/es/app/chollogas-gasolineras-baratas/id6773014516)
+
   Backed by a TypeScript API, PostgreSQL, and an operational MITECO ingestion
-  pipeline.
-- **Hilo — pre-release SwiftUI product and release pipeline.**
+  pipeline. A public engineering case study is in preparation.
+- **Hilo — published SwiftUI word game and release pipeline.**
   [Product site](https://hilo.ogamlabs.com) ·
+  [App Store](https://apps.apple.com/es/app/id6779929637) ·
   [Engineering case study](https://github.com/magnoscg/hilo-case-study)  
   4,015 original puzzles, 11 store locales, 1,128 passing tests, and a
   documented asset pipeline.
 - **AnvilCLI — open-source iOS developer tooling.**
-  [Code and releases](https://github.com/magnoscg/anvil)  
+  [Code and releases](https://github.com/magnoscg/anvil) ·
+  [CI checks](https://github.com/magnoscg/anvil/actions/workflows/ci.yml)
+
   A Go CLI that scaffolds iOS projects with Clean Architecture, MVVM, Router
-  navigation, golden tests, and optional AI coding packs.
+  navigation, golden tests, and optional AI coding packs. Its transactional
+  generator is protected by 421 automated tests; its 34 provenance-tracked
+  skills include 25 self-contained Swift 6 examples.
 
 The product code for Hilo and CholloGas remains private. Their public material
 documents architecture, trade-offs, testing, operations, and measurable

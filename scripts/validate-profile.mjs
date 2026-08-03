@@ -15,9 +15,20 @@ const REQUIRED_LINKS = Object.freeze([
   'https://chollogas.ogamlabs.com',
   'https://apps.apple.com/es/app/chollogas-gasolineras-baratas/id6773014516',
   'https://hilo.ogamlabs.com',
+  'https://apps.apple.com/es/app/id6779929637',
   'https://github.com/magnoscg/hilo-case-study',
   'https://github.com/magnoscg/anvil',
+  'https://github.com/magnoscg/anvil/actions/workflows/ci.yml',
 ]);
+
+const ANVIL_PUBLIC_PROOF = Object.freeze([
+  'transactional generator',
+  '421 automated tests',
+  '34 provenance-tracked skills',
+  '25 self-contained Swift 6 examples',
+]);
+
+const CHOLLOGAS_CASE_STUDY_URL = 'https://github.com/magnoscg/chollogas-case-study';
 
 const EXPECTED_BANNER = Object.freeze({
   path: 'assets/profile-banner.png',
@@ -74,6 +85,7 @@ export async function validateProfile(root = process.cwd()) {
   const profileRoot = resolve(root);
   const errors = new Set();
   const markdown = await readFile(join(profileRoot, 'README.md'), 'utf8');
+  const normalizedMarkdown = markdown.replace(/\s+/g, ' ');
   const references = markdownReferences(markdown);
 
   for (const section of REQUIRED_SECTIONS) {
@@ -117,8 +129,19 @@ export async function validateProfile(root = process.cwd()) {
   if (/\[(?:CV|résumé|resume)\]\([^)]*\)/i.test(markdown)) {
     errors.add('README.md: CV must stay disconnected while it is under revision');
   }
-  if (!/\*\*Hilo\b[\s\S]{0,120}\bpre-release\b/i.test(markdown)) {
-    errors.add('README.md: Hilo must remain explicitly labelled as pre-release');
+  if (targets.has(CHOLLOGAS_CASE_STUDY_URL)) {
+    errors.add('README.md: CholloGas case study must stay disconnected until it is public');
+  }
+  if (!/\*\*CholloGas\b[\s\S]{0,520}public engineering case study is in preparation/i.test(markdown)) {
+    errors.add('README.md: CholloGas needs its public-case-study-in-preparation label');
+  }
+  if (!/\*\*Hilo\b[\s\S]{0,120}\bpublished\b/i.test(markdown)) {
+    errors.add('README.md: Hilo must remain explicitly labelled as published');
+  }
+  for (const proof of ANVIL_PUBLIC_PROOF) {
+    if (!normalizedMarkdown.includes(proof)) {
+      errors.add(`README.md: Anvil public proof must include "${proof}"`);
+    }
   }
   if (!/\*\*PRDPlanner\*\*[\s\S]{0,320}public edition is in preparation/i.test(markdown)) {
     errors.add('README.md: PRDPlanner needs its public-edition-in-preparation label');
