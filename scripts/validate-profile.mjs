@@ -15,9 +15,12 @@ const REQUIRED_LINKS = Object.freeze([
   'mailto:soporte@ogamlabs.com',
   'https://chollogas.ogamlabs.com',
   'https://apps.apple.com/es/app/chollogas-gasolineras-baratas/id6773014516',
+  'https://github.com/magnoscg/chollogas-case-study',
   'https://hilo.ogamlabs.com',
   'https://apps.apple.com/es/app/id6779929637',
   'https://github.com/magnoscg/hilo-case-study',
+  'https://github.com/magnoscg/ios-architecture-reference',
+  'https://github.com/magnoscg/ios-architecture-reference/actions/workflows/ci.yml',
   'https://github.com/magnoscg/anvil',
   'https://github.com/magnoscg/anvil/actions/workflows/ci.yml',
 ]);
@@ -29,7 +32,22 @@ const ANVIL_PUBLIC_PROOF = Object.freeze([
   '25 self-contained Swift 6 examples',
 ]);
 
-const CHOLLOGAS_CASE_STUDY_URL = 'https://github.com/magnoscg/chollogas-case-study';
+const CHOLLOGAS_PUBLIC_PROOF = Object.freeze([
+  'public engineering case study',
+  'Swift 6 offline-first client',
+  'official-data ingestion',
+  'production operations',
+  'without exposing the product source',
+]);
+
+const ARCHITECTURE_PUBLIC_PROOF = Object.freeze([
+  'Four Swift Package modules',
+  'Clean Architecture dependency direction',
+  'MVVM',
+  'typed Router navigation',
+  '15 Swift Testing checks',
+  'zero third-party package dependencies',
+]);
 
 const EXPECTED_BANNER = Object.freeze({
   path: 'assets/profile-banner.png',
@@ -203,14 +221,18 @@ export async function validateProfile(root = process.cwd()) {
   if (/\[(?:CV|résumé|resume)\]\([^)]*\)/i.test(markdown)) {
     errors.add('README.md: CV must stay disconnected while it is under revision');
   }
-  if (targets.has(CHOLLOGAS_CASE_STUDY_URL)) {
-    errors.add('README.md: CholloGas case study must stay disconnected until it is public');
-  }
-  if (!/\*\*CholloGas\b[\s\S]{0,520}public engineering case study is in preparation/i.test(markdown)) {
-    errors.add('README.md: CholloGas needs its public-case-study-in-preparation label');
-  }
   if (!/\*\*Hilo\b[\s\S]{0,120}\bpublished\b/i.test(markdown)) {
     errors.add('README.md: Hilo must remain explicitly labelled as published');
+  }
+  for (const proof of CHOLLOGAS_PUBLIC_PROOF) {
+    if (!normalizedMarkdown.includes(proof)) {
+      errors.add(`README.md: CholloGas public proof must include "${proof}"`);
+    }
+  }
+  for (const proof of ARCHITECTURE_PUBLIC_PROOF) {
+    if (!normalizedMarkdown.includes(proof)) {
+      errors.add(`README.md: architecture public proof must include "${proof}"`);
+    }
   }
   for (const proof of ANVIL_PUBLIC_PROOF) {
     if (!normalizedMarkdown.includes(proof)) {
