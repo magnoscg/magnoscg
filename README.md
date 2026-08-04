@@ -12,16 +12,28 @@ that keep it running.
 
 - **CholloGas — production iOS, backend, and data operations.**
   [Product site](https://chollogas.ogamlabs.com) ·
-  [App Store](https://apps.apple.com/es/app/chollogas-gasolineras-baratas/id6773014516)
+  [App Store](https://apps.apple.com/es/app/chollogas-gasolineras-baratas/id6773014516) ·
+  [Engineering case study](https://github.com/magnoscg/chollogas-case-study)
 
   Backed by a TypeScript API, PostgreSQL, and an operational MITECO ingestion
-  pipeline. A public engineering case study is in preparation.
+  pipeline. The public engineering case study documents its Swift 6
+  offline-first client, API boundaries, official-data ingestion, route
+  decisions, privacy model, and production operations without exposing the
+  product source.
 - **Hilo — published SwiftUI word game and release pipeline.**
   [Product site](https://hilo.ogamlabs.com) ·
   [App Store](https://apps.apple.com/es/app/id6779929637) ·
   [Engineering case study](https://github.com/magnoscg/hilo-case-study)  
   4,015 original puzzles, 11 store locales, 1,128 passing tests, and a
   documented asset pipeline.
+- **iOS Architecture Reference — buildable Swift 6 boundaries.**
+  [Code and decisions](https://github.com/magnoscg/ios-architecture-reference) ·
+  [CI checks](https://github.com/magnoscg/ios-architecture-reference/actions/workflows/ci.yml)
+
+  Four Swift Package modules make Clean Architecture dependency direction
+  visible at compile time. The reference combines MVVM, typed Router
+  navigation, `@MainActor` state, 15 Swift Testing checks, and zero third-party
+  package dependencies.
 - **AnvilCLI — open-source iOS developer tooling.**
   [Code and releases](https://github.com/magnoscg/anvil) ·
   [CI checks](https://github.com/magnoscg/anvil/actions/workflows/ci.yml)
