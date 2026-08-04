@@ -106,6 +106,19 @@ test('Anvil public evidence cannot drift away from its verified totals', async (
   assert(result.errors.some((error) => error.includes('421 automated tests')));
 });
 
+test('the Swift architecture proof cannot drift from its verified test total', async (t) => {
+  const fixture = await makeFixture(t);
+  const readmePath = join(fixture, 'README.md');
+  const markdown = await readFile(readmePath, 'utf8');
+  await writeFile(
+    readmePath,
+    markdown.replace('15 Swift Testing checks', '14 Swift Testing checks'),
+  );
+
+  const result = await validateProfile(fixture);
+  assert(result.errors.some((error) => error.includes('15 Swift Testing checks')));
+});
+
 test('the CV remains disconnected while it is under revision', async (t) => {
   const fixture = await makeFixture(t);
   const readmePath = join(fixture, 'README.md');
@@ -116,17 +129,22 @@ test('the CV remains disconnected while it is under revision', async (t) => {
   assert(result.errors.some((error) => error.includes('CV must stay disconnected')));
 });
 
-test('the CholloGas case study remains disconnected until it is public', async (t) => {
+test('the published CholloGas case study remains connected', async (t) => {
   const fixture = await makeFixture(t);
   const readmePath = join(fixture, 'README.md');
   const markdown = await readFile(readmePath, 'utf8');
   await writeFile(
     readmePath,
-    `${markdown}\n[Engineering case study](https://github.com/magnoscg/chollogas-case-study)\n`,
+    markdown.replace(
+      '[Engineering case study](https://github.com/magnoscg/chollogas-case-study)',
+      '[Engineering case study](https://github.com/magnoscg)',
+    ),
   );
 
   const result = await validateProfile(fixture);
-  assert(result.errors.some((error) => error.includes('CholloGas case study must stay disconnected')));
+  assert(result.errors.some((error) => (
+    error.includes('missing required public link https://github.com/magnoscg/chollogas-case-study')
+  )));
 });
 
 test('the banner dimensions cannot drift', async (t) => {
