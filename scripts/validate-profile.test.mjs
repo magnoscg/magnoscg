@@ -112,11 +112,11 @@ test('the Swift architecture proof cannot drift from its verified test total', a
   const markdown = await readFile(readmePath, 'utf8');
   await writeFile(
     readmePath,
-    markdown.replace('15 Swift Testing checks', '14 Swift Testing checks'),
+    markdown.replace('194 Swift Testing cases', '193 Swift Testing cases'),
   );
 
   const result = await validateProfile(fixture);
-  assert(result.errors.some((error) => error.includes('15 Swift Testing checks')));
+  assert(result.errors.some((error) => error.includes('194 Swift Testing cases across 27 suites')));
 });
 
 test('the CV remains disconnected while it is under revision', async (t) => {

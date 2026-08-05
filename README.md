@@ -26,14 +26,16 @@ that keep it running.
   [Engineering case study](https://github.com/magnoscg/hilo-case-study)  
   4,015 original puzzles, 11 store locales, 1,128 passing tests, and a
   documented asset pipeline.
-- **iOS Architecture Reference — buildable Swift 6 boundaries.**
+- **iOS Architecture Reference — a real, buildable SwiftUI application.**
   [Code and decisions](https://github.com/magnoscg/ios-architecture-reference) ·
   [CI checks](https://github.com/magnoscg/ios-architecture-reference/actions/workflows/ci.yml)
 
-  Four Swift Package modules make Clean Architecture dependency direction
-  visible at compile time. The reference combines MVVM, typed Router
-  navigation, `@MainActor` state, 15 Swift Testing checks, and zero third-party
-  package dependencies.
+  A single app target, layered and feature-oriented, inspired by Clean
+  Architecture, with MVVM, typed Router navigation, and manual factory-based
+  dependency injection. Folders express the architecture inside one application
+  target rather than enforcing it at compile time; the reference is backed by
+  194 Swift Testing cases across 27 suites and zero third-party package
+  dependencies.
 - **AnvilCLI — open-source iOS developer tooling.**
   [Code and releases](https://github.com/magnoscg/anvil) ·
   [CI checks](https://github.com/magnoscg/anvil/actions/workflows/ci.yml)
