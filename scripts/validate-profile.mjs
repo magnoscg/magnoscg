@@ -41,11 +41,12 @@ const CHOLLOGAS_PUBLIC_PROOF = Object.freeze([
 ]);
 
 const ARCHITECTURE_PUBLIC_PROOF = Object.freeze([
-  'Four Swift Package modules',
-  'Clean Architecture dependency direction',
+  'single app target',
+  'inspired by Clean Architecture',
   'MVVM',
   'typed Router navigation',
-  '15 Swift Testing checks',
+  'manual factory-based dependency injection',
+  '194 Swift Testing cases across 27 suites',
   'zero third-party package dependencies',
 ]);
 
