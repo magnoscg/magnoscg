@@ -54,12 +54,15 @@ engineering outcomes without exposing the products themselves.
 - **PRDPlanner** — a PRD → plan → build workflow with bounded context,
   dependency-aware phases, parallel verification, adversarial review, and
   explicit human gates. A public edition is in preparation.
+  [Engineering case study](https://github.com/magnoscg/prdplanner-case-study)
 - **HarnessHub** — a local-first composer for compatible skills, subagents,
   plugins, and MCPs that produces reproducible multi-harness bundles without
   installing or executing their contents. Currently in local beta.
+  [Engineering case study](https://github.com/magnoscg/harnesshub-case-study)
 
-These projects remain labelled as in development until their public editions
-can provide the same level of evidence as the work above.
+Each now has a public engineering case study documenting its architecture,
+trade-offs and verified results. They stay in this section because the products
+themselves are not yet publicly available, unlike the shipped work above.
 
 ## Engineering focus
 

@@ -23,6 +23,8 @@ const REQUIRED_LINKS = Object.freeze([
   'https://github.com/magnoscg/ios-architecture-reference/actions/workflows/ci.yml',
   'https://github.com/magnoscg/anvil',
   'https://github.com/magnoscg/anvil/actions/workflows/ci.yml',
+  'https://github.com/magnoscg/prdplanner-case-study',
+  'https://github.com/magnoscg/harnesshub-case-study',
 ]);
 
 const ANVIL_PUBLIC_PROOF = Object.freeze([
