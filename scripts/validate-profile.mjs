@@ -52,6 +52,12 @@ const ARCHITECTURE_PUBLIC_PROOF = Object.freeze([
   'zero third-party package dependencies',
 ]);
 
+const SUPERSEDED_ARCHITECTURE_CLAIMS = Object.freeze([
+  'Four Swift Package modules',
+  '15 Swift Testing checks',
+  'dependency direction visible at compile time',
+]);
+
 const EXPECTED_BANNER = Object.freeze({
   path: 'assets/profile-banner.png',
   width: 1280,
@@ -234,6 +240,12 @@ export async function validateProfile(root = process.cwd()) {
   for (const proof of ARCHITECTURE_PUBLIC_PROOF) {
     if (!normalizedMarkdown.includes(proof)) {
       errors.add(`README.md: architecture public proof must include "${proof}"`);
+    }
+  }
+  const lowercaseMarkdown = normalizedMarkdown.toLowerCase();
+  for (const claim of SUPERSEDED_ARCHITECTURE_CLAIMS) {
+    if (lowercaseMarkdown.includes(claim.toLowerCase())) {
+      errors.add(`README.md: architecture contains superseded claim "${claim}"`);
     }
   }
   for (const proof of ANVIL_PUBLIC_PROOF) {

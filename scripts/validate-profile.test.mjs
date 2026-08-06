@@ -106,6 +106,40 @@ test('Anvil public evidence cannot drift away from its verified totals', async (
   assert(result.errors.some((error) => error.includes('421 automated tests')));
 });
 
+test('the superseded SPM-module claim cannot come back', async (t) => {
+  const fixture = await makeFixture(t);
+  const readmePath = join(fixture, 'README.md');
+  const markdown = await readFile(readmePath, 'utf8');
+  await writeFile(
+    readmePath,
+    `${markdown}\nFour Swift Package modules make Clean Architecture dependency\ndirection visible at compile time.\n`,
+  );
+
+  const result = await validateProfile(fixture);
+  assert(result.errors.some((error) => error.includes('Four Swift Package modules')));
+  assert(result.errors.some((error) => error.includes('dependency direction visible at compile time')));
+});
+
+test('the superseded 15-test count cannot come back', async (t) => {
+  const fixture = await makeFixture(t);
+  const readmePath = join(fixture, 'README.md');
+  const markdown = await readFile(readmePath, 'utf8');
+  await writeFile(readmePath, `${markdown}\nBacked by 15 Swift Testing checks.\n`);
+
+  const result = await validateProfile(fixture);
+  assert(result.errors.some((error) => error.includes('15 Swift Testing checks')));
+});
+
+test('a superseded claim is caught whatever its casing', async (t) => {
+  const fixture = await makeFixture(t);
+  const readmePath = join(fixture, 'README.md');
+  const markdown = await readFile(readmePath, 'utf8');
+  await writeFile(readmePath, `${markdown}\nfour swift package modules.\n`);
+
+  const result = await validateProfile(fixture);
+  assert(result.errors.some((error) => error.includes('Four Swift Package modules')));
+});
+
 test('the Swift architecture proof cannot drift from its verified test total', async (t) => {
   const fixture = await makeFixture(t);
   const readmePath = join(fixture, 'README.md');
