@@ -56,7 +56,7 @@ const EXPECTED_BANNER = Object.freeze({
   path: 'assets/profile-banner.png',
   width: 1280,
   height: 512,
-  sha256: '15d877758fac8aaf91e7959cd3a47fba9ad54bb97eedc33ef0a14fe1f7c78673',
+  sha256: '03354a6381f514fe9f4da70b916b401dbbb59158c150a5e7ed453b4428d17d08',
 });
 
 const PROVENANCE_PATH = 'ASSET_PROVENANCE.md';
@@ -66,15 +66,14 @@ const APPROVED_ACTIONS = new Map([
 ]);
 const REQUIRED_PROVENANCE_STATEMENTS = Object.freeze([
   '- Asset: `assets/profile-banner.png`.',
-  '- Source type: AI-assisted first-party derivative.',
-  '- Generator: OpenAI ImageGen.',
-  '- Generated: 2026-07-31.',
-  '- Reference asset: PortfolioWeb `assets/og-image.png`, a first-party OgamLabs social card.',
-  '- Reference dimensions: 1200x630.',
-  '- Reference SHA-256: `a507fff26f858d89d845d2f468b071c25fd8b7bbdf8550766090792412700291`.',
-  '- Generated-output dimensions: 1983x793.',
-  '- Generated-output SHA-256: `dd6ebe676c2b075244b6460513ea56bf421d1a57343cc51f9ef2f502e7e21a6b`.',
-  '- Transformation: resized proportionally to 1280x512 with macOS `sips -z 512 1280`; no crop or additional retouching was applied.',
+  '- Source type: first-party screen capture.',
+  '- Generator: none. No generative model was used.',
+  '- Captured: 2026-08-06.',
+  '- Reference asset: the English page of ogamlabs.com at release `1.5.0`, served from its locally built deployment artifact.',
+  '- Reference dimensions: 3400x2000.',
+  '- Reference SHA-256: `3fd87a13f9d3dc6f550e869b1e7bc5eb85c0d27958ea074f45c030b7f42291fe`.',
+  '- Capture method: headless Chrome at a 1700x1000 CSS viewport with device scale factor 2 and scrollbars hidden.',
+  '- Transformation: cropped to 2600x1040 and resampled to 1280x512. Capturing at 2x and reducing by 2.03 keeps the body copy legible at the width GitHub renders. No retouching, recolouring or composition was applied.',
   '- Distributed dimensions: 1280x512.',
   `- Distributed SHA-256: \`${EXPECTED_BANNER.sha256}\`.`,
   '- Content declaration: no product UI, person, customer data, testimonial, or third-party logo is represented.',

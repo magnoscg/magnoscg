@@ -7,25 +7,29 @@ so the public profile can be reviewed without relying on an undocumented binary.
 
 - Asset: `assets/profile-banner.png`.
 - Role: GitHub profile banner for Oscar Canton's professional engineering profile.
-- Source type: AI-assisted first-party derivative.
-- Generator: OpenAI ImageGen.
-- Generated: 2026-07-31.
-- Reference asset: PortfolioWeb `assets/og-image.png`, a first-party OgamLabs social card.
-- Reference dimensions: 1200x630.
-- Reference SHA-256: `a507fff26f858d89d845d2f468b071c25fd8b7bbdf8550766090792412700291`.
-- Prompt intent: localize the reference card for an English-speaking recruiter audience
-  while preserving its black technical grid, restrained blue-to-green accent, hierarchy,
-  spacing, and OgamLabs identity.
-- Required text: `Oscar Canton`, `Senior iOS Engineer · Software Architect`,
-  `MADRID · SWIFT · SWIFTUI · TYPESCRIPT · POSTGRESQL`, and `ogamlabs.com`.
-- Generated-output dimensions: 1983x793.
-- Generated-output SHA-256: `dd6ebe676c2b075244b6460513ea56bf421d1a57343cc51f9ef2f502e7e21a6b`.
-- Transformation: resized proportionally to 1280x512 with macOS `sips -z 512 1280`;
-  no crop or additional retouching was applied.
+- Source type: first-party screen capture.
+- Generator: none. No generative model was used.
+- Captured: 2026-08-06.
+- Reference asset: the English page of ogamlabs.com at release `1.5.0`, served from its
+  locally built deployment artifact.
+- Reference dimensions: 3400x2000.
+- Reference SHA-256: `3fd87a13f9d3dc6f550e869b1e7bc5eb85c0d27958ea074f45c030b7f42291fe`.
+- Capture method: headless Chrome at a 1700x1000 CSS viewport with device scale factor 2
+  and scrollbars hidden.
+- Framing: the hero band, CSS rows 108 to 628, centred on the page and stopping above the
+  proof strip, so the headline, the opening paragraphs, the calls to action and the stack
+  row are complete.
+- Transformation: cropped to 2600x1040 and resampled to 1280x512. Capturing at 2x and
+  reducing by 2.03 keeps the body copy legible at the width GitHub renders. No retouching,
+  recolouring or composition was applied.
 - Distributed dimensions: 1280x512.
-- Distributed SHA-256: `15d877758fac8aaf91e7959cd3a47fba9ad54bb97eedc33ef0a14fe1f7c78673`.
+- Distributed SHA-256: `03354a6381f514fe9f4da70b916b401dbbb59158c150a5e7ed453b4428d17d08`.
 - Content declaration: no product UI, person, customer data, testimonial, or third-party
-  logo is represented.
+  logo is represented. The crop deliberately stops above the site's proof strip, so the
+  banner carries the headline and the opening paragraphs but no app screenshot.
 
-The banner is presentation artwork, not evidence of product functionality. Product claims
-in the profile link to public repositories, case studies, product sites, or App Store pages.
+Until 2026-08-06 this banner was an AI-generated derivative of an OgamLabs social card. It
+was replaced by a capture of the site itself: the profile no longer opens with synthetic
+artwork, and the banner now changes only when the site does. It still is presentation, not
+evidence of product functionality — product claims in the profile link to public
+repositories, case studies, product sites, or App Store pages.
