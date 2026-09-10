@@ -1,5 +1,7 @@
 ![The ogamlabs.com home page: Oscar Canton, Senior iOS Engineer, Madrid](assets/profile-banner.png)
 
+![GitHub activity since 2017, private repositories included: contributions this year, active days, longest streak, pull requests, repositories, a bar per year and the last 52 weeks](assets/github-activity.svg)
+
 I work at VASS. Since late 2022 I have been on the Inditex account, on the app
 that store staff across the group use every day, and since 2025 I lead its iOS
 team. Before that I moved through banking and retail for other clients of ours:

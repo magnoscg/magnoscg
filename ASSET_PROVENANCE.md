@@ -1,6 +1,6 @@
 # Asset provenance
 
-This repository uses one local image. Its origin and transformation are recorded here
+This repository uses two local images. Their origin and transformation are recorded here
 so the public profile can be reviewed without relying on an undocumented binary.
 
 ## `assets/profile-banner.png`
@@ -27,6 +27,22 @@ so the public profile can be reviewed without relying on an undocumented binary.
 - Content declaration: no product UI, person, customer data, testimonial, or third-party
   logo is represented. The crop deliberately stops above the site's proof strip, so the
   banner carries the headline and the opening paragraphs but no app screenshot.
+
+## `assets/github-activity.svg`
+
+- Asset: `assets/github-activity.svg`.
+- Role: activity card under the banner, so a reader sees the account's age and its
+  contribution rhythm without leaving the page.
+- Source type: numbers read from the GitHub GraphQL API for the `magnoscg` account,
+  including private repositories, through the authenticated `gh` CLI.
+- Generator: `scripts/build-stats.mjs`, run by hand against the GitHub GraphQL API. It
+  draws the card as plain SVG shapes and text; no generative model, template service or
+  third-party image host is involved.
+- Refresh: `npm run stats`, then commit the result. The card states the date its numbers
+  were counted and the validator refuses one without it.
+- Content declaration: contribution counts, active days, streak length, pull request and
+  repository totals, a bar per calendar year and a 52-week heat map. No product UI, person
+  or third-party logo is represented.
 
 Until 2026-08-06 this banner was an AI-generated derivative of an OgamLabs social card. It
 was replaced by a capture of the site itself: the profile no longer opens with synthetic
