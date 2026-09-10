@@ -65,6 +65,11 @@ const EXPECTED_BANNER = Object.freeze({
   sha256: '03354a6381f514fe9f4da70b916b401dbbb59158c150a5e7ed453b4428d17d08',
 });
 
+const EXPECTED_ACTIVITY = Object.freeze({
+  path: 'assets/github-activity.svg',
+  generator: 'scripts/build-stats.mjs',
+});
+
 const PROVENANCE_PATH = 'ASSET_PROVENANCE.md';
 const WORKFLOW_PATH = '.github/workflows/profile-check.yml';
 const APPROVED_ACTIONS = new Map([
@@ -83,6 +88,8 @@ const REQUIRED_PROVENANCE_STATEMENTS = Object.freeze([
   '- Distributed dimensions: 1280x512.',
   `- Distributed SHA-256: \`${EXPECTED_BANNER.sha256}\`.`,
   '- Content declaration: no product UI, person, customer data, testimonial, or third-party logo is represented.',
+  `- Asset: \`${EXPECTED_ACTIVITY.path}\`.`,
+  `- Generator: \`${EXPECTED_ACTIVITY.generator}\`, run by hand against the GitHub GraphQL API.`,
 ]);
 
 export function markdownReferences(markdown) {
@@ -118,6 +125,23 @@ function pngDimensions(data) {
 
 function sha256(data) {
   return createHash('sha256').update(data).digest('hex');
+}
+
+// The activity card is generated locally and committed, so it must stay a
+// self-contained drawing: no script, no foreign markup, no remote fetch.
+function validateActivitySvg(svg, errors) {
+  if (!/^\s*<svg\b/.test(svg)) {
+    errors.add(`${EXPECTED_ACTIVITY.path}: expected an SVG document`);
+  }
+  if (/<(?:script|foreignObject|iframe|image|use)\b/i.test(svg)) {
+    errors.add(`${EXPECTED_ACTIVITY.path}: active or embedded content is not allowed`);
+  }
+  if (/\b(?:https?:)?\/\/(?!www\.w3\.org\/)/i.test(svg) || /\bon[a-z]+\s*=/i.test(svg)) {
+    errors.add(`${EXPECTED_ACTIVITY.path}: remote references and event handlers are not allowed`);
+  }
+  if (!/Counted by the GitHub API on \d{4}-\d{2}-\d{2}/.test(svg)) {
+    errors.add(`${EXPECTED_ACTIVITY.path}: must state the date its numbers were counted`);
+  }
 }
 
 function validateWorkflow(workflow, errors) {
@@ -214,10 +238,15 @@ export async function validateProfile(root = process.cwd()) {
   }
 
   const images = references.filter(({ image }) => image);
-  if (images.length !== 1) {
-    errors.add('README.md: expected exactly one local profile image');
-  } else if (images[0].target !== EXPECTED_BANNER.path) {
-    errors.add(`README.md: profile image must be ${EXPECTED_BANNER.path}`);
+  if (images.length !== 2) {
+    errors.add('README.md: expected exactly two local images, the banner then the activity card');
+  } else {
+    if (images[0].target !== EXPECTED_BANNER.path) {
+      errors.add(`README.md: profile image must be ${EXPECTED_BANNER.path}`);
+    }
+    if (images[1].target !== EXPECTED_ACTIVITY.path) {
+      errors.add(`README.md: activity image must be ${EXPECTED_ACTIVITY.path}`);
+    }
   }
 
   if (/(?:file:\/\/|\/Users\/|\/home\/|[A-Za-z]:\\)/i.test(markdown)) {
@@ -289,6 +318,13 @@ export async function validateProfile(root = process.cwd()) {
   }
 
   try {
+    const activity = await readFile(join(profileRoot, EXPECTED_ACTIVITY.path), 'utf8');
+    validateActivitySvg(activity, errors);
+  } catch {
+    errors.add(`${EXPECTED_ACTIVITY.path}: file is missing or unreadable`);
+  }
+
+  try {
     const provenance = await readFile(join(profileRoot, PROVENANCE_PATH), 'utf8');
     const normalizedProvenance = provenance.replace(/\s+/g, ' ');
     for (const statement of REQUIRED_PROVENANCE_STATEMENTS) {
@@ -328,8 +364,9 @@ async function main() {
   }
 
   console.log(
-    `Validated ${result.linkCount} links and a `
-    + `${result.banner.width}x${result.banner.height} hash-locked local banner.`,
+    `Validated ${result.linkCount} links, a `
+    + `${result.banner.width}x${result.banner.height} hash-locked local banner `
+    + 'and a self-contained activity card.',
   );
 }
 

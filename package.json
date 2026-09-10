@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "test": "node --test scripts/validate-profile.test.mjs",
-    "validate": "node scripts/validate-profile.mjs"
+    "validate": "node scripts/validate-profile.mjs",
+    "stats": "node scripts/build-stats.mjs"
   }
 }

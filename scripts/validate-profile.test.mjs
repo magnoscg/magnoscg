@@ -23,6 +23,10 @@ async function makeFixture(t) {
     join(fixture, 'assets/profile-banner.png'),
   );
   await copyFile(
+    join(PROJECT_ROOT, 'assets/github-activity.svg'),
+    join(fixture, 'assets/github-activity.svg'),
+  );
+  await copyFile(
     join(PROJECT_ROOT, '.github/workflows/profile-check.yml'),
     join(fixture, '.github/workflows/profile-check.yml'),
   );
@@ -61,6 +65,53 @@ test('the profile image cannot be swapped for another local file', async (t) => 
 
   const result = await validateProfile(fixture);
   assert(result.errors.some((error) => error.includes('profile image must be')));
+});
+
+test('the activity card cannot be swapped for another local file', async (t) => {
+  const fixture = await makeFixture(t);
+  const readmePath = join(fixture, 'README.md');
+  const markdown = await readFile(readmePath, 'utf8');
+  await writeFile(
+    readmePath,
+    markdown.replace('assets/github-activity.svg', 'assets/other-card.svg'),
+  );
+  const result = await validateProfile(fixture);
+
+  assert(result.errors.some((error) => error.includes('activity image must be')));
+});
+
+test('a third image is rejected', async (t) => {
+  const fixture = await makeFixture(t);
+  const readmePath = join(fixture, 'README.md');
+  const markdown = await readFile(readmePath, 'utf8');
+  await writeFile(readmePath, `${markdown}\n![Extra](assets/profile-banner.png)\n`);
+  const result = await validateProfile(fixture);
+
+  assert(result.errors.some((error) => error.includes('exactly two local images')));
+});
+
+test('the activity card rejects scripts and remote references', async (t) => {
+  const fixture = await makeFixture(t);
+  const cardPath = join(fixture, 'assets/github-activity.svg');
+  const svg = await readFile(cardPath, 'utf8');
+  await writeFile(
+    cardPath,
+    svg.replace('</svg>', '<script>alert(1)</script><image href="https://example.com/x.png"/></svg>'),
+  );
+  const result = await validateProfile(fixture);
+
+  assert(result.errors.some((error) => error.includes('active or embedded content')));
+  assert(result.errors.some((error) => error.includes('remote references')));
+});
+
+test('the activity card must carry its counting date', async (t) => {
+  const fixture = await makeFixture(t);
+  const cardPath = join(fixture, 'assets/github-activity.svg');
+  const svg = await readFile(cardPath, 'utf8');
+  await writeFile(cardPath, svg.replace(/Counted by the GitHub API on \d{4}-\d{2}-\d{2}/, 'Counted'));
+  const result = await validateProfile(fixture);
+
+  assert(result.errors.some((error) => error.includes('counting date') || error.includes('date its numbers')));
 });
 
 test('relative path traversal is rejected', async (t) => {
