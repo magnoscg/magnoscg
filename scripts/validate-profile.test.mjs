@@ -26,10 +26,12 @@ async function makeFixture(t) {
     join(PROJECT_ROOT, 'assets/github-activity.svg'),
     join(fixture, 'assets/github-activity.svg'),
   );
-  await copyFile(
-    join(PROJECT_ROOT, '.github/workflows/profile-check.yml'),
-    join(fixture, '.github/workflows/profile-check.yml'),
-  );
+  for (const workflow of ['profile-check.yml', 'refresh-stats.yml']) {
+    await copyFile(
+      join(PROJECT_ROOT, '.github/workflows', workflow),
+      join(fixture, '.github/workflows', workflow),
+    );
+  }
   t.after(() => rm(fixture, { recursive: true, force: true }));
   return fixture;
 }
@@ -296,7 +298,7 @@ test('workflow write permissions and pull_request_target are rejected', async (t
 
   const result = await validateProfile(fixture);
   assert(result.errors.some((error) => error.includes('pull_request_target is not allowed')));
-  assert(result.errors.some((error) => error.includes('write permissions are not allowed')));
+  assert(result.errors.some((error) => error.includes('write permission is not allowed')));
 });
 
 test('workflow actions must be allowlisted and pinned to approved SHAs', async (t) => {
@@ -336,4 +338,57 @@ test('the workflow must run both profile checks', async (t) => {
 
   const result = await validateProfile(fixture);
   assert(result.errors.some((error) => error.includes('missing required command "npm run validate"')));
+});
+
+test('a workflow outside the allowlist is rejected', async (t) => {
+  const fixture = await makeFixture(t);
+  await writeFile(
+    join(fixture, '.github/workflows/deploy.yml'),
+    'name: Deploy\non: push\n',
+  );
+
+  const result = await validateProfile(fixture);
+  assert(result.errors.some((error) => error.includes('deploy.yml: workflow is not allowlisted')));
+});
+
+test('the refresh workflow must exist', async (t) => {
+  const fixture = await makeFixture(t);
+  await rm(join(fixture, '.github/workflows/refresh-stats.yml'));
+
+  const result = await validateProfile(fixture);
+  assert(result.errors.some((error) => error.includes('refresh-stats.yml: file is missing')));
+});
+
+test('the refresh workflow cannot widen its write permissions', async (t) => {
+  const fixture = await makeFixture(t);
+  const workflowPath = join(fixture, '.github/workflows/refresh-stats.yml');
+  const workflow = await readFile(workflowPath, 'utf8');
+  await writeFile(workflowPath, workflow.replace('      contents: write', '      packages: write'));
+
+  const result = await validateProfile(fixture);
+  assert(result.errors.some((error) => error.includes('write permission is not allowed (packages)')));
+});
+
+test('the refresh workflow cannot skip its own validation before committing', async (t) => {
+  const fixture = await makeFixture(t);
+  const workflowPath = join(fixture, '.github/workflows/refresh-stats.yml');
+  const workflow = await readFile(workflowPath, 'utf8');
+  await writeFile(workflowPath, workflow.replace('run: npm run validate', 'run: true'));
+
+  const result = await validateProfile(fixture);
+  assert(result.errors.some((error) => (
+    error.includes('refresh-stats.yml: missing required command "npm run validate"')
+  )));
+});
+
+test('every workflow is held to the action allowlist, not just the check one', async (t) => {
+  const fixture = await makeFixture(t);
+  const workflowPath = join(fixture, '.github/workflows/refresh-stats.yml');
+  const workflow = await readFile(workflowPath, 'utf8');
+  await writeFile(workflowPath, workflow.replace('actions/checkout@', 'example/checkout@'));
+
+  const result = await validateProfile(fixture);
+  assert(result.errors.some((error) => (
+    error.includes('refresh-stats.yml: action is not allowlisted')
+  )));
 });

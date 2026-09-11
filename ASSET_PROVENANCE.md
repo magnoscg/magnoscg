@@ -35,14 +35,16 @@ so the public profile can be reviewed without relying on an undocumented binary.
   contribution rhythm without leaving the page.
 - Source type: numbers read from the GitHub GraphQL API for the `magnoscg` account,
   including private repositories, through the authenticated `gh` CLI.
-- Generator: `scripts/build-stats.mjs`, run by hand against the GitHub GraphQL API. It
-  draws the card as plain SVG shapes and text; no generative model, template service or
-  third-party image host is involved.
-- Refresh: `npm run stats`, then commit the result. The card states the date its numbers
-  were counted and the validator refuses one without it.
+- Generator: `scripts/build-stats.mjs`, run against the GitHub GraphQL API on a weekly
+  schedule. It draws the card as plain SVG shapes and text; no generative model, template
+  service or third-party image host is involved.
+- Refresh: `.github/workflows/refresh-stats.yml` recounts and commits the card every Monday,
+  and on demand through `workflow_dispatch`. `npm run stats` does the same locally. The card
+  states the date its numbers were counted and the validator refuses one without it.
 - Content declaration: contribution counts, active days, streak length, pull request and
-  repository totals, a bar per calendar year and a 52-week heat map. No product UI, person
-  or third-party logo is represented.
+  repository totals. No graph is drawn: GitHub renders its own contribution calendar under
+  the README, so the card carries only the numbers that calendar cannot show. No product UI,
+  person or third-party logo is represented.
 
 Until 2026-08-06 this banner was an AI-generated derivative of an OgamLabs social card. It
 was replaced by a capture of the site itself: the profile no longer opens with synthetic
