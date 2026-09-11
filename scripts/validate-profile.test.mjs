@@ -392,3 +392,13 @@ test('every workflow is held to the action allowlist, not just the check one', a
     error.includes('refresh-stats.yml: action is not allowlisted')
   )));
 });
+
+test('a project demoted from a heading to bold text loses its label', async (t) => {
+  const fixture = await makeFixture(t);
+  const readmePath = join(fixture, 'README.md');
+  const markdown = await readFile(readmePath, 'utf8');
+  await writeFile(readmePath, markdown.replace('### PRDPlanner', '**PRDPlanner**'));
+
+  const result = await validateProfile(fixture);
+  assert(result.errors.some((error) => error.includes('PRDPlanner needs its')));
+});
