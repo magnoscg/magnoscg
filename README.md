@@ -17,10 +17,12 @@ and I keep their API, their database and their server running myself.
 
 ## Selected work
 
-**CholloGas** — fuel prices across Spain and France, from the official open
-data. I built it for an unglamorous reason: every app I could find was ugly to
-look at, and I wanted a nice one for my own fuel stops. The app is Swift and
-SwiftUI. The API is TypeScript on Fastify over PostgreSQL, and I operate it.
+### CholloGas
+
+Fuel prices across Spain and France, from the official open data. I built it for
+an unglamorous reason: every app I could find was ugly to look at, and I wanted
+a nice one for my own fuel stops. The app is Swift and SwiftUI. The API is
+TypeScript on Fastify over PostgreSQL, and I operate it.
 
 [Product site](https://chollogas.ogamlabs.com) ·
 [App Store](https://apps.apple.com/es/app/chollogas-gasolineras-baratas/id6773014516) ·
@@ -31,10 +33,12 @@ the API boundaries, the official-data ingestion, the route decisions, the
 privacy model and the production operations — without exposing the product
 source.
 
-**Hilo** — a published SwiftUI word game: five words hiding one common thread,
-one short round a day. We are a daily-puzzle household, so I ended up building
-ours. The game itself was not the long part; the pipeline that generates,
-validates and reviews the catalogue and the store assets was.
+### Hilo
+
+A published SwiftUI word game: five words hiding one common thread, one short
+round a day. We are a daily-puzzle household, so I ended up building ours. The
+game itself was not the long part; the pipeline that generates, validates and
+reviews the catalogue and the store assets was.
 
 [Product site](https://hilo.ogamlabs.com) ·
 [App Store](https://apps.apple.com/es/app/id6779929637) ·
@@ -42,22 +46,26 @@ validates and reviews the catalogue and the store assets was.
 
 4,015 original puzzles, 11 store locales, 1,128 passing tests.
 
-**iOS Architecture Reference** — a real Xcode application that builds, not a
-diagram. Layers and features live inside a single app target, inspired by Clean
-Architecture, with MVVM, typed Router navigation and manual factory-based
-dependency injection. Folders express the architecture rather than the compiler
-enforcing it, and 194 Swift Testing cases across 27 suites hold the boundaries
-in place. There are zero third-party package dependencies.
+### iOS Architecture Reference
+
+A real Xcode application that builds, not a diagram. Layers and features live
+inside a single app target, inspired by Clean Architecture, with MVVM, typed
+Router navigation and manual factory-based dependency injection. Folders express
+the architecture rather than the compiler enforcing it, and
+194 Swift Testing cases across 27 suites hold the boundaries in place.
+There are zero third-party package dependencies.
 
 [Code and decisions](https://github.com/magnoscg/ios-architecture-reference) ·
 [CI checks](https://github.com/magnoscg/ios-architecture-reference/actions/workflows/ci.yml)
 
-**AnvilCLI** — a Go CLI that sets up iOS projects for me, with Clean
-Architecture, MVVM, Router navigation, golden tests and optional AI coding
-packs. Its transactional generator plans and validates every destination before
-it writes: it never overwrites a file, and if something fails halfway it rolls
-back only what that run created. Covered by 421 automated tests, and its
-34 provenance-tracked skills include 25 self-contained Swift 6 examples.
+### AnvilCLI
+
+A Go CLI that sets up iOS projects for me, with Clean Architecture, MVVM, Router
+navigation, golden tests and optional AI coding packs. Its transactional
+generator plans and validates every destination before it writes: it never
+overwrites a file, and if something fails halfway it rolls back only what that
+run created. Covered by 421 automated tests, and its 34 provenance-tracked
+skills include 25 self-contained Swift 6 examples.
 
 [Code and security](https://github.com/magnoscg/anvil) ·
 [CI checks](https://github.com/magnoscg/anvil/actions/workflows/ci.yml)
@@ -71,16 +79,19 @@ With AI I apply the same rules as with anyone else who touches my code: a clear
 brief, just enough context, and something that checks the work before it lands.
 Both of these came out of needing them myself.
 
-**PRDPlanner** — a PRD → plan → build workflow with bounded context,
-dependency-aware phases, parallel verification and a stage whose job is to
-refute what the other stages found, before a human decides.
-A public edition is in preparation.
+### PRDPlanner
+
+A PRD → plan → build workflow with bounded context, dependency-aware phases,
+parallel verification and a stage whose job is to refute what the other stages
+found, before a human decides. A public edition is in preparation.
 
 [Engineering case study](https://github.com/magnoscg/prdplanner-case-study)
 
-**HarnessHub** — a local-first composer for skills, subagents, plugins and MCPs
-that produces reproducible multi-harness bundles without installing or
-executing anything it packages. It is currently in local beta.
+### HarnessHub
+
+A local-first composer for skills, subagents, plugins and MCPs that produces
+reproducible multi-harness bundles without installing or executing anything it
+packages. It is currently in local beta.
 
 [Engineering case study](https://github.com/magnoscg/harnesshub-case-study)
 

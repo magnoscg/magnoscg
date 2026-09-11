@@ -304,7 +304,7 @@ export async function validateProfile(root = process.cwd()) {
   if (/\[(?:CV|résumé|resume)\]\([^)]*\)/i.test(markdown)) {
     errors.add('README.md: CV must stay disconnected while it is under revision');
   }
-  if (!/\*\*Hilo\b[\s\S]{0,120}\bpublished\b/i.test(markdown)) {
+  if (!/^### Hilo$[\s\S]{0,120}\bpublished\b/im.test(markdown)) {
     errors.add('README.md: Hilo must remain explicitly labelled as published');
   }
   for (const proof of CHOLLOGAS_PUBLIC_PROOF) {
@@ -328,10 +328,10 @@ export async function validateProfile(root = process.cwd()) {
       errors.add(`README.md: Anvil public proof must include "${proof}"`);
     }
   }
-  if (!/\*\*PRDPlanner\*\*[\s\S]{0,320}public edition is in preparation/i.test(markdown)) {
+  if (!/^### PRDPlanner$[\s\S]{0,320}public edition is in preparation/im.test(markdown)) {
     errors.add('README.md: PRDPlanner needs its public-edition-in-preparation label');
   }
-  if (!/\*\*HarnessHub\*\*[\s\S]{0,360}currently in local beta/i.test(markdown)) {
+  if (!/^### HarnessHub$[\s\S]{0,360}currently in local beta/im.test(markdown)) {
     errors.add('README.md: HarnessHub needs its local-beta label');
   }
 
