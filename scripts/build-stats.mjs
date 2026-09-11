@@ -10,7 +10,7 @@
 // would only duplicate it with a frozen copy. What the calendar cannot show is
 // what this card is for: private repositories included in every total.
 import { execFileSync } from 'node:child_process';
-import { writeFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -106,6 +106,46 @@ ${statSvg}
 `;
 }
 
+// Every total on the card only goes up. Pull requests and repositories accumulate,
+// the streak is an all-time maximum, and the two year counters reset only when the
+// year does. So a total that drops means the API answered with less than the account
+// holds rather than with a smaller account: a token without `repo` counts public
+// repositories and public pull requests and returns them without an error. Refuse to
+// publish that. Set ALLOW_LOWER_TOTALS=1 to overrule it after deleting a repository.
+export function readCardTotals(svg) {
+  const totals = [...svg.matchAll(/<text[^>]*class="big">([\d,]+)<\/text>/g)]
+    .map(([, value]) => Number(value.replace(/,/g, '')));
+  return { year: svg.match(/class="label">contributions in (\d{4})</)?.[1] ?? null, totals };
+}
+
+export function lostTotals(previous, next) {
+  const lost = [];
+  for (const [index, value] of next.totals.entries()) {
+    const before = previous.totals[index];
+    if (before === undefined) continue;
+    if (index < 2 && previous.year !== next.year) continue;
+    if (value < before) lost.push(`${before} -> ${value}`);
+  }
+  return lost;
+}
+
+async function guardAgainstLoss(svg) {
+  let previous;
+  try {
+    previous = readCardTotals(await readFile(join(PROJECT_ROOT, OUTPUT), 'utf8'));
+  } catch {
+    return;
+  }
+  const lost = lostTotals(previous, readCardTotals(svg));
+  if (lost.length > 0) {
+    throw new Error(
+      `${OUTPUT}: totals went down (${lost.join(', ')}). The API answered with less than `
+      + 'the account holds, most likely a token that cannot see private repositories. '
+      + 'Set ALLOW_LOWER_TOTALS=1 to write it anyway.',
+    );
+  }
+}
+
 async function main() {
   const today = new Date().toISOString().slice(0, 10);
   const account = graphql(`{ user(login: "${LOGIN}") { createdAt pullRequests { totalCount } repositories(ownerAffiliations: OWNER) { totalCount } } }`);
@@ -121,6 +161,9 @@ async function main() {
     pullRequests: account.pullRequests.totalCount,
     repositories: account.repositories.totalCount,
   }, today);
+  if (!process.env.ALLOW_LOWER_TOTALS) {
+    await guardAgainstLoss(svg);
+  }
   await writeFile(join(PROJECT_ROOT, OUTPUT), svg);
   console.log(`${OUTPUT}: ${number(summary.thisYear.contributions)} contributions in ${summary.thisYear.year}, `
     + `${summary.thisYear.activeDays} active days, longest streak ${summary.longestStreak}.`);
