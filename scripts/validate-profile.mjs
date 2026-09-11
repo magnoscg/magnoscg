@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { readFile } from 'node:fs/promises';
+import { readdir, readFile } from 'node:fs/promises';
 import { isAbsolute, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -71,7 +71,19 @@ const EXPECTED_ACTIVITY = Object.freeze({
 });
 
 const PROVENANCE_PATH = 'ASSET_PROVENANCE.md';
-const WORKFLOW_PATH = '.github/workflows/profile-check.yml';
+const WORKFLOWS_DIR = '.github/workflows';
+const CHECK_WORKFLOW = 'profile-check.yml';
+const REFRESH_WORKFLOW = 'refresh-stats.yml';
+// Every workflow in the directory is held to the same rules, so a second file
+// cannot slip in unchecked. Writing is a per-file grant rather than a blanket
+// ban: the refresh job has to commit the card it recounts, and saying so in
+// YAML keeps that privilege visible here and to a reader, instead of hiding it
+// inside a personal access token no checker can see.
+const WORKFLOW_RULES = new Map([
+  [CHECK_WORKFLOW, { writePermissions: [] }],
+  [REFRESH_WORKFLOW, { writePermissions: ['contents'] }],
+]);
+const REQUIRED_WORKFLOW_COMMANDS = Object.freeze(['npm test', 'npm run validate']);
 const APPROVED_ACTIONS = new Map([
   ['actions/checkout', '3d3c42e5aac5ba805825da76410c181273ba90b1'],
 ]);
@@ -89,7 +101,7 @@ const REQUIRED_PROVENANCE_STATEMENTS = Object.freeze([
   `- Distributed SHA-256: \`${EXPECTED_BANNER.sha256}\`.`,
   '- Content declaration: no product UI, person, customer data, testimonial, or third-party logo is represented.',
   `- Asset: \`${EXPECTED_ACTIVITY.path}\`.`,
-  `- Generator: \`${EXPECTED_ACTIVITY.generator}\`, run by hand against the GitHub GraphQL API.`,
+  `- Generator: \`${EXPECTED_ACTIVITY.generator}\`, run against the GitHub GraphQL API on a weekly schedule.`,
 ]);
 
 export function markdownReferences(markdown) {
@@ -144,50 +156,84 @@ function validateActivitySvg(svg, errors) {
   }
 }
 
-function validateWorkflow(workflow, errors) {
+function validateWorkflow(workflow, errors, path, rules) {
   if (/^\s*pull_request_target\s*:/m.test(workflow)) {
-    errors.add(`${WORKFLOW_PATH}: pull_request_target is not allowed`);
+    errors.add(`${path}: pull_request_target is not allowed`);
   }
   if (!/^permissions:\r?\n  contents: read[ \t]*$/m.test(workflow)) {
-    errors.add(`${WORKFLOW_PATH}: top-level permissions must be contents: read`);
+    errors.add(`${path}: top-level permissions must be contents: read`);
   }
-  if (/^\s{2,}[A-Za-z0-9_-]+:\s*write\s*$/m.test(workflow)) {
-    errors.add(`${WORKFLOW_PATH}: write permissions are not allowed`);
+  for (const [, permission] of workflow.matchAll(/^\s{2,}([A-Za-z0-9_-]+):\s*write\s*$/gm)) {
+    if (!rules.writePermissions.includes(permission)) {
+      errors.add(`${path}: write permission is not allowed (${permission})`);
+    }
   }
   if (!/^\s+timeout-minutes:\s*5\s*$/m.test(workflow)) {
-    errors.add(`${WORKFLOW_PATH}: validate job must keep a five-minute timeout`);
+    errors.add(`${path}: every job must keep a five-minute timeout`);
   }
-  for (const command of ['npm test', 'npm run validate']) {
+  for (const command of REQUIRED_WORKFLOW_COMMANDS) {
     if (!new RegExp(`^\\s+run:\\s*${command.replace(/ /g, '\\s+')}\\s*$`, 'm').test(workflow)) {
-      errors.add(`${WORKFLOW_PATH}: missing required command "${command}"`);
+      errors.add(`${path}: missing required command "${command}"`);
     }
   }
 
   const actionReferences = [...workflow.matchAll(/^\s*uses:\s*([^\s#]+)(?:\s+#.*)?$/gm)]
     .map((match) => match[1]);
   if (actionReferences.length === 0) {
-    errors.add(`${WORKFLOW_PATH}: expected at least one SHA-pinned action`);
+    errors.add(`${path}: expected at least one SHA-pinned action`);
   }
 
   for (const reference of actionReferences) {
     const pinned = reference.match(/^([^@]+)@([0-9a-f]{40})$/i);
     if (!pinned) {
-      errors.add(`${WORKFLOW_PATH}: action must be pinned to a full commit SHA (${reference})`);
+      errors.add(`${path}: action must be pinned to a full commit SHA (${reference})`);
       continue;
     }
     const [, action, revision] = pinned;
     const approvedRevision = APPROVED_ACTIONS.get(action);
     if (!approvedRevision) {
-      errors.add(`${WORKFLOW_PATH}: action is not allowlisted (${action})`);
+      errors.add(`${path}: action is not allowlisted (${action})`);
     } else if (revision.toLowerCase() !== approvedRevision) {
-      errors.add(`${WORKFLOW_PATH}: action revision is not approved (${reference})`);
+      errors.add(`${path}: action revision is not approved (${reference})`);
     }
   }
 
   const checkoutStep = workflow.split(/\n(?=\s{6}-\s)/)
     .find((step) => step.includes('uses: actions/checkout@'));
   if (!checkoutStep || !/^\s+persist-credentials:\s*false\s*$/m.test(checkoutStep)) {
-    errors.add(`${WORKFLOW_PATH}: checkout must set persist-credentials: false`);
+    errors.add(`${path}: checkout must set persist-credentials: false`);
+  }
+}
+
+async function validateWorkflows(profileRoot, errors) {
+  let names;
+  try {
+    names = (await readdir(join(profileRoot, WORKFLOWS_DIR)))
+      .filter((name) => /\.ya?ml$/i.test(name))
+      .sort();
+  } catch {
+    errors.add(`${WORKFLOWS_DIR}: directory is missing or unreadable`);
+    return;
+  }
+
+  for (const expected of WORKFLOW_RULES.keys()) {
+    if (!names.includes(expected)) {
+      errors.add(`${WORKFLOWS_DIR}/${expected}: file is missing`);
+    }
+  }
+
+  for (const name of names) {
+    const path = `${WORKFLOWS_DIR}/${name}`;
+    const rules = WORKFLOW_RULES.get(name);
+    if (!rules) {
+      errors.add(`${path}: workflow is not allowlisted`);
+      continue;
+    }
+    try {
+      validateWorkflow(await readFile(join(profileRoot, path), 'utf8'), errors, path, rules);
+    } catch {
+      errors.add(`${path}: file is unreadable`);
+    }
   }
 }
 
@@ -339,12 +385,7 @@ export async function validateProfile(root = process.cwd()) {
     errors.add(`${PROVENANCE_PATH}: file is missing or unreadable`);
   }
 
-  try {
-    const workflow = await readFile(join(profileRoot, WORKFLOW_PATH), 'utf8');
-    validateWorkflow(workflow, errors);
-  } catch {
-    errors.add(`${WORKFLOW_PATH}: file is missing or unreadable`);
-  }
+  await validateWorkflows(profileRoot, errors);
 
   return {
     banner,
