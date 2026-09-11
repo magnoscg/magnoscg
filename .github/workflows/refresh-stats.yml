@@ -1,10 +1,11 @@
-name: Refresh activity card
+name: Refresh activity card and calendar
 
-# Recounts assets/github-activity.svg from the GitHub API and commits it, so the
-# card never drifts from the account it describes. The read token is separate
-# from the write one on purpose: STATS_TOKEN only carries read:user, which is
-# what makes private contributions countable, and the push uses the job's own
-# GITHUB_TOKEN, which is scoped to this repository and expires with the job.
+# Recounts assets/github-activity.svg and redraws assets/github-calendar.svg from
+# the GitHub API and commits them, so neither drifts from the account it describes.
+# The read token is separate from the write one on purpose: STATS_TOKEN only
+# carries read:user, which is what makes private contributions countable, and
+# the push uses the job's own GITHUB_TOKEN, which is scoped to this repository
+# and expires with the job.
 
 on:
   schedule:
@@ -34,13 +35,18 @@ jobs:
           GH_TOKEN: ${{ secrets.STATS_TOKEN }}
         run: npm run stats
 
+      - name: Redraw the contribution calendar
+        env:
+          GH_TOKEN: ${{ secrets.STATS_TOKEN }}
+        run: npm run calendar
+
       - name: Run profile tests
         run: npm test
 
       - name: Validate public proof
         run: npm run validate
 
-      # The card carries the date it was counted, so it changes on every run.
+      # Both drawings carry the date they were counted, so they change on every run.
       # That is the point: each commit is a fresh count, not noise.
       - name: Commit the recount
         env:
@@ -48,6 +54,6 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add assets/github-activity.svg
-          git commit -m 'chore: recount the activity card'
+          git add assets/github-activity.svg assets/github-calendar.svg
+          git commit -m 'chore: recount the activity card and calendar'
           git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main
