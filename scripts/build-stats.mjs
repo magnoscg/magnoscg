@@ -1,8 +1,14 @@
 #!/usr/bin/env node
 // Renders assets/github-activity.svg from the GitHub GraphQL API, read through
-// the authenticated `gh` CLI so private contributions are counted. Run it by
-// hand (`npm run stats`) and commit the result: the profile never loads a
-// third-party image, and the numbers stay reviewable in git history.
+// the authenticated `gh` CLI so private contributions are counted. A weekly
+// workflow runs it and commits the result, and `npm run stats` does the same by
+// hand: the profile never loads a third-party image, and the numbers stay
+// reviewable in git history.
+//
+// The card carries numbers only. GitHub renders its own contribution calendar
+// directly under the README, always current, so drawing a second heat map here
+// would only duplicate it with a frozen copy. What the calendar cannot show is
+// what this card is for: private repositories included in every total.
 import { execFileSync } from 'node:child_process';
 import { writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
@@ -48,14 +54,12 @@ export function summarize(years, today) {
   const thisYear = today.slice(0, 4);
   const yearDays = sorted.filter((date) => date.startsWith(thisYear));
   return {
-    perYear: years.map(({ year, calendar }) => ({ year, total: calendar.totalContributions })),
     thisYear: {
       year: thisYear,
       contributions: yearDays.reduce((sum, date) => sum + days.get(date), 0),
       activeDays: yearDays.filter((date) => days.get(date) > 0).length,
     },
     longestStreak: best,
-    lastYear: sorted.filter((date) => dayDiff(date, today) < 364).map((date) => ({ date, count: days.get(date) })),
   };
 }
 
@@ -68,11 +72,8 @@ const escape = (text) => text.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 
 export function render(summary, extra, today) {
   const W = 1280;
-  const H = 400;
+  const H = 260;
   const green = '#3fb950';
-  const levels = ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353'];
-  const max = Math.max(1, ...summary.lastYear.map(({ count }) => count));
-  const level = (count) => (count === 0 ? 0 : Math.min(4, 1 + Math.floor((count / max) * 3.999)));
 
   const stats = [
     [number(summary.thisYear.contributions), `contributions in ${summary.thisYear.year}`],
@@ -87,31 +88,12 @@ export function render(summary, extra, today) {
 <text x="${x}" y="182" class="label">${escape(label)}</text>`;
   }).join('\n');
 
-  // One row of bars per year: the account's whole life, not just a good year.
-  const barMax = Math.max(1, ...summary.perYear.map(({ total }) => total));
-  const barSvg = summary.perYear.map(({ year, total }, index) => {
-    const x = 132 + index * 58;
-    const h = Math.max(total > 0 ? 3 : 1, Math.round((total / barMax) * 90));
-    return `<rect x="${x}" y="${330 - h}" width="42" height="${h}" rx="3" fill="${total > 0 ? green : '#21262d'}"/>
-<text x="${x + 21}" y="352" class="axis" text-anchor="middle">${year}</text>`;
-  }).join('\n');
-
-  // Last 52 weeks as a heat map, one column per week starting on Sunday.
-  const first = summary.lastYear[0]?.date ?? today;
-  const offset = new Date(first).getUTCDay();
-  const cellSvg = summary.lastYear.map(({ date, count }, index) => {
-    const slot = index + offset;
-    const x = 740 + Math.floor(slot / 7) * 10;
-    const y = 238 + (slot % 7) * 10;
-    return `<rect x="${x}" y="${y}" width="8" height="8" rx="2" fill="${levels[level(count)]}"><title>${date}: ${count}</title></rect>`;
-  }).join('\n');
-
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="title">
 <title id="title">GitHub activity of ${LOGIN}: ${number(summary.thisYear.contributions)} contributions in ${summary.thisYear.year}, longest streak ${summary.longestStreak} days, on GitHub since ${extra.since}</title>
 <style>
   text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: #ffffff; }
-  .eyebrow, .axis, .caption { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; fill: #8b949e; letter-spacing: 0.08em; }
-  .axis, .caption { letter-spacing: 0; font-size: 12px; }
+  .eyebrow, .caption { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; fill: #8b949e; letter-spacing: 0.08em; }
+  .caption { letter-spacing: 0; font-size: 12px; }
   .big { font-size: 44px; font-weight: 700; letter-spacing: -0.02em; }
   .label { font-size: 15px; fill: #c9d1d9; }
 </style>
@@ -119,11 +101,7 @@ export function render(summary, extra, today) {
 <circle cx="136" cy="53" r="3.5" fill="${green}"/>
 <text x="148" y="58" class="eyebrow">GITHUB ACTIVITY · SINCE ${extra.since} · PRIVATE REPOSITORIES INCLUDED · UPDATED ${today}</text>
 ${statSvg}
-<text x="132" y="225" class="eyebrow">CONTRIBUTIONS PER YEAR</text>
-${barSvg}
-<text x="740" y="225" class="eyebrow">LAST 52 WEEKS</text>
-${cellSvg}
-<text x="740" y="340" class="caption">Counted by the GitHub API on ${today}, nothing estimated</text>
+<text x="132" y="225" class="caption">Counted by the GitHub API on ${today}, nothing estimated</text>
 </svg>
 `;
 }
