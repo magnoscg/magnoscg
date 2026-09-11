@@ -26,6 +26,10 @@ async function makeFixture(t) {
     join(PROJECT_ROOT, 'assets/github-activity.svg'),
     join(fixture, 'assets/github-activity.svg'),
   );
+  await copyFile(
+    join(PROJECT_ROOT, 'assets/github-calendar.svg'),
+    join(fixture, 'assets/github-calendar.svg'),
+  );
   for (const workflow of ['profile-check.yml', 'refresh-stats.yml']) {
     await copyFile(
       join(PROJECT_ROOT, '.github/workflows', workflow),
@@ -82,14 +86,37 @@ test('the activity card cannot be swapped for another local file', async (t) => 
   assert(result.errors.some((error) => error.includes('activity image must be')));
 });
 
-test('a third image is rejected', async (t) => {
+test('a fourth image is rejected', async (t) => {
   const fixture = await makeFixture(t);
   const readmePath = join(fixture, 'README.md');
   const markdown = await readFile(readmePath, 'utf8');
   await writeFile(readmePath, `${markdown}\n![Extra](assets/profile-banner.png)\n`);
   const result = await validateProfile(fixture);
 
-  assert(result.errors.some((error) => error.includes('exactly two local images')));
+  assert(result.errors.some((error) => error.includes('exactly three local images')));
+});
+
+test('the calendar cannot be swapped for another local file', async (t) => {
+  const fixture = await makeFixture(t);
+  const readmePath = join(fixture, 'README.md');
+  const markdown = await readFile(readmePath, 'utf8');
+  await writeFile(
+    readmePath,
+    markdown.replace('assets/github-calendar.svg', 'assets/other-calendar.svg'),
+  );
+  const result = await validateProfile(fixture);
+
+  assert(result.errors.some((error) => error.includes('calendar image must be')));
+});
+
+test('the calendar must carry its counting date', async (t) => {
+  const fixture = await makeFixture(t);
+  const calendarPath = join(fixture, 'assets/github-calendar.svg');
+  const svg = await readFile(calendarPath, 'utf8');
+  await writeFile(calendarPath, svg.replace(/Counted by the GitHub API on \d{4}-\d{2}-\d{2}/, 'Counted'));
+  const result = await validateProfile(fixture);
+
+  assert(result.errors.some((error) => error.includes('github-calendar.svg: must state the date')));
 });
 
 test('the activity card rejects scripts and remote references', async (t) => {

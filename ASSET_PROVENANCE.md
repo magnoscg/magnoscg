@@ -1,6 +1,6 @@
 # Asset provenance
 
-This repository uses two local images. Their origin and transformation are recorded here
+This repository uses three local images. Their origin and transformation are recorded here
 so the public profile can be reviewed without relying on an undocumented binary.
 
 ## `assets/profile-banner.png`
@@ -42,8 +42,29 @@ so the public profile can be reviewed without relying on an undocumented binary.
   and on demand through `workflow_dispatch`. `npm run stats` does the same locally. The card
   states the date its numbers were counted and the validator refuses one without it.
 - Content declaration: contribution counts, active days, streak length, pull request and
-  repository totals. No graph is drawn: GitHub renders its own contribution calendar under
-  the README, so the card carries only the numbers that calendar cannot show. No product UI,
+  repository totals. The card itself carries no graph: the calendar next to it draws the
+  rhythm, and the card carries only the numbers that calendar cannot show. No product UI,
+  person or third-party logo is represented.
+
+## `assets/github-calendar.svg`
+
+- Asset: `assets/github-calendar.svg`.
+- Role: the rolling 53-week contribution calendar, drawn above the prose so the account's
+  rhythm is visible on arrival rather than below the pinned repositories, which is where
+  GitHub places its own copy.
+- Source type: contribution counts read from the GitHub GraphQL API for the `magnoscg`
+  account, including private repositories, through the authenticated `gh` CLI.
+- Generator: `scripts/build-calendar.mjs`, run against the GitHub GraphQL API on a weekly
+  schedule. It draws the calendar as plain SVG rectangles and text; no generative model,
+  template service or third-party image host is involved.
+- Refresh: `.github/workflows/refresh-stats.yml` redraws and commits the calendar every
+  Monday, and on demand through `workflow_dispatch`. `npm run calendar` does the same
+  locally. The drawing states the date its days were counted and the validator refuses one
+  without it.
+- Colour scale: quartiles of the days that carry contributions, on GitHub's own five-step
+  green scale, so the drawing reads the way the calendar it lifts does.
+- Content declaration: one rectangle per day with its contribution count mapped to a shade,
+  plus the totals and the count date. No repository name, commit message, product UI,
   person or third-party logo is represented.
 
 Until 2026-08-06 this banner was an AI-generated derivative of an OgamLabs social card. It

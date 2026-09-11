@@ -70,6 +70,11 @@ const EXPECTED_ACTIVITY = Object.freeze({
   generator: 'scripts/build-stats.mjs',
 });
 
+const EXPECTED_CALENDAR = Object.freeze({
+  path: 'assets/github-calendar.svg',
+  generator: 'scripts/build-calendar.mjs',
+});
+
 const PROVENANCE_PATH = 'ASSET_PROVENANCE.md';
 const WORKFLOWS_DIR = '.github/workflows';
 const CHECK_WORKFLOW = 'profile-check.yml';
@@ -102,6 +107,8 @@ const REQUIRED_PROVENANCE_STATEMENTS = Object.freeze([
   '- Content declaration: no product UI, person, customer data, testimonial, or third-party logo is represented.',
   `- Asset: \`${EXPECTED_ACTIVITY.path}\`.`,
   `- Generator: \`${EXPECTED_ACTIVITY.generator}\`, run against the GitHub GraphQL API on a weekly schedule.`,
+  `- Asset: \`${EXPECTED_CALENDAR.path}\`.`,
+  `- Generator: \`${EXPECTED_CALENDAR.generator}\`, run against the GitHub GraphQL API on a weekly schedule.`,
 ]);
 
 export function markdownReferences(markdown) {
@@ -139,20 +146,20 @@ function sha256(data) {
   return createHash('sha256').update(data).digest('hex');
 }
 
-// The activity card is generated locally and committed, so it must stay a
+// Both drawings are generated locally and committed, so each must stay a
 // self-contained drawing: no script, no foreign markup, no remote fetch.
-function validateActivitySvg(svg, errors) {
+function validateGeneratedSvg(svg, errors, path) {
   if (!/^\s*<svg\b/.test(svg)) {
-    errors.add(`${EXPECTED_ACTIVITY.path}: expected an SVG document`);
+    errors.add(`${path}: expected an SVG document`);
   }
   if (/<(?:script|foreignObject|iframe|image|use)\b/i.test(svg)) {
-    errors.add(`${EXPECTED_ACTIVITY.path}: active or embedded content is not allowed`);
+    errors.add(`${path}: active or embedded content is not allowed`);
   }
   if (/\b(?:https?:)?\/\/(?!www\.w3\.org\/)/i.test(svg) || /\bon[a-z]+\s*=/i.test(svg)) {
-    errors.add(`${EXPECTED_ACTIVITY.path}: remote references and event handlers are not allowed`);
+    errors.add(`${path}: remote references and event handlers are not allowed`);
   }
   if (!/Counted by the GitHub API on \d{4}-\d{2}-\d{2}/.test(svg)) {
-    errors.add(`${EXPECTED_ACTIVITY.path}: must state the date its numbers were counted`);
+    errors.add(`${path}: must state the date its numbers were counted`);
   }
 }
 
@@ -284,14 +291,20 @@ export async function validateProfile(root = process.cwd()) {
   }
 
   const images = references.filter(({ image }) => image);
-  if (images.length !== 2) {
-    errors.add('README.md: expected exactly two local images, the banner then the activity card');
+  if (images.length !== 3) {
+    errors.add(
+      'README.md: expected exactly three local images, the banner, the activity card '
+      + 'then the contribution calendar',
+    );
   } else {
     if (images[0].target !== EXPECTED_BANNER.path) {
       errors.add(`README.md: profile image must be ${EXPECTED_BANNER.path}`);
     }
     if (images[1].target !== EXPECTED_ACTIVITY.path) {
       errors.add(`README.md: activity image must be ${EXPECTED_ACTIVITY.path}`);
+    }
+    if (images[2].target !== EXPECTED_CALENDAR.path) {
+      errors.add(`README.md: calendar image must be ${EXPECTED_CALENDAR.path}`);
     }
   }
 
@@ -363,11 +376,13 @@ export async function validateProfile(root = process.cwd()) {
     );
   }
 
-  try {
-    const activity = await readFile(join(profileRoot, EXPECTED_ACTIVITY.path), 'utf8');
-    validateActivitySvg(activity, errors);
-  } catch {
-    errors.add(`${EXPECTED_ACTIVITY.path}: file is missing or unreadable`);
+  for (const asset of [EXPECTED_ACTIVITY, EXPECTED_CALENDAR]) {
+    try {
+      const drawing = await readFile(join(profileRoot, asset.path), 'utf8');
+      validateGeneratedSvg(drawing, errors, asset.path);
+    } catch {
+      errors.add(`${asset.path}: file is missing or unreadable`);
+    }
   }
 
   try {
@@ -407,7 +422,7 @@ async function main() {
   console.log(
     `Validated ${result.linkCount} links, a `
     + `${result.banner.width}x${result.banner.height} hash-locked local banner `
-    + 'and a self-contained activity card.',
+    + 'and two self-contained drawings, the activity card and the contribution calendar.',
   );
 }
 

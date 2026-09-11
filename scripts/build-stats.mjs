@@ -5,10 +5,11 @@
 // hand: the profile never loads a third-party image, and the numbers stay
 // reviewable in git history.
 //
-// The card carries numbers only. GitHub renders its own contribution calendar
-// directly under the README, always current, so drawing a second heat map here
-// would only duplicate it with a frozen copy. What the calendar cannot show is
-// what this card is for: private repositories included in every total.
+// The card carries numbers only. The calendar next to it, drawn by
+// scripts/build-calendar.mjs, carries the rhythm: GitHub renders its own copy,
+// but below the pinned repositories, where an arriving reader does not see it.
+// What neither calendar can show is what this card is for: private repositories
+// included in every total.
 import { execFileSync } from 'node:child_process';
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
