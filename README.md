@@ -1,4 +1,4 @@
-![The ogamlabs.com home page: Oscar Canton, Senior iOS Engineer, Madrid](assets/profile-banner.png)
+![The ogamlabs.com home page: Senior iOS Engineer, ten years building in Swift, open to senior iOS roles in Madrid](assets/profile-banner.png)
 
 <div align="center">
 

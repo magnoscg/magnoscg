@@ -66,7 +66,7 @@ const EXPECTED_BANNER = Object.freeze({
   path: 'assets/profile-banner.png',
   width: 1280,
   height: 512,
-  sha256: '03354a6381f514fe9f4da70b916b401dbbb59158c150a5e7ed453b4428d17d08',
+  sha256: '3ba553d9cc8900bb4c6a7c3c9948a99eb58353335bf2deb15f67a9ada2dc701f',
 });
 
 const EXPECTED_ACTIVITY = Object.freeze({
@@ -100,15 +100,15 @@ const REQUIRED_PROVENANCE_STATEMENTS = Object.freeze([
   '- Asset: `assets/profile-banner.png`.',
   '- Source type: first-party screen capture.',
   '- Generator: none. No generative model was used.',
-  '- Captured: 2026-08-06.',
-  '- Reference asset: the English page of ogamlabs.com at release `1.5.0`, served from its locally built deployment artifact.',
+  '- Captured: 2026-11-04.',
+  '- Reference asset: the English page of ogamlabs.com as published on 2026-11-04, `https://ogamlabs.com/en`.',
   '- Reference dimensions: 3400x2000.',
-  '- Reference SHA-256: `3fd87a13f9d3dc6f550e869b1e7bc5eb85c0d27958ea074f45c030b7f42291fe`.',
+  '- Reference SHA-256: `51a7241b289731cd5d080bb4ee6bedfa672dc74dfbf9248e12311840e7766db1`.',
   '- Capture method: headless Chrome at a 1700x1000 CSS viewport with device scale factor 2 and scrollbars hidden.',
   '- Transformation: cropped to 2600x1040 and resampled to 1280x512. Capturing at 2x and reducing by 2.03 keeps the body copy legible at the width GitHub renders. No retouching, recolouring or composition was applied.',
   '- Distributed dimensions: 1280x512.',
   `- Distributed SHA-256: \`${EXPECTED_BANNER.sha256}\`.`,
-  '- Content declaration: no product UI, person, customer data, testimonial, or third-party logo is represented.',
+  '- Content declaration: no product UI, person, customer data or testimonial is represented; the only third-party mark is the LinkedIn glyph on one call-to-action button.',
   `- Asset: \`${EXPECTED_ACTIVITY.path}\`.`,
   `- Generator: \`${EXPECTED_ACTIVITY.generator}\`, run against the GitHub GraphQL API on a weekly schedule.`,
   `- Asset: \`${EXPECTED_CALENDAR.path}\`.`,

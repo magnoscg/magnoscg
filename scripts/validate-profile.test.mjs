@@ -46,7 +46,7 @@ test('the current profile satisfies its public-proof invariants', async () => {
   assert.deepEqual(result.banner, {
     width: 1280,
     height: 512,
-    sha256: '03354a6381f514fe9f4da70b916b401dbbb59158c150a5e7ed453b4428d17d08',
+    sha256: '3ba553d9cc8900bb4c6a7c3c9948a99eb58353335bf2deb15f67a9ada2dc701f',
   });
 });
 
@@ -290,7 +290,7 @@ test('banner provenance is required and hash-bound', async (t) => {
   await writeFile(
     provenancePath,
     provenance.replace(
-      '03354a6381f514fe9f4da70b916b401dbbb59158c150a5e7ed453b4428d17d08',
+      '3ba553d9cc8900bb4c6a7c3c9948a99eb58353335bf2deb15f67a9ada2dc701f',
       '0000000000000000000000000000000000000000000000000000000000000000',
     ),
   );

@@ -9,24 +9,25 @@ so the public profile can be reviewed without relying on an undocumented binary.
 - Role: GitHub profile banner for Oscar Canton's professional engineering profile.
 - Source type: first-party screen capture.
 - Generator: none. No generative model was used.
-- Captured: 2026-08-06.
-- Reference asset: the English page of ogamlabs.com at release `1.5.0`, served from its
-  locally built deployment artifact.
+- Captured: 2026-11-04.
+- Reference asset: the English page of ogamlabs.com as published on 2026-11-04,
+  `https://ogamlabs.com/en`.
 - Reference dimensions: 3400x2000.
-- Reference SHA-256: `3fd87a13f9d3dc6f550e869b1e7bc5eb85c0d27958ea074f45c030b7f42291fe`.
+- Reference SHA-256: `51a7241b289731cd5d080bb4ee6bedfa672dc74dfbf9248e12311840e7766db1`.
 - Capture method: headless Chrome at a 1700x1000 CSS viewport with device scale factor 2
   and scrollbars hidden.
-- Framing: the hero band, CSS rows 108 to 628, centred on the page and stopping above the
-  proof strip, so the headline, the opening paragraphs, the calls to action and the stack
-  row are complete.
+- Framing: the hero band, CSS rows 82 to 602 and columns 200 to 1500, centred on the page
+  and stopping above the divider of the client strip, so the status pill, the headline, the
+  opening paragraph and the calls to action are complete.
 - Transformation: cropped to 2600x1040 and resampled to 1280x512. Capturing at 2x and
   reducing by 2.03 keeps the body copy legible at the width GitHub renders. No retouching,
   recolouring or composition was applied.
 - Distributed dimensions: 1280x512.
-- Distributed SHA-256: `03354a6381f514fe9f4da70b916b401dbbb59158c150a5e7ed453b4428d17d08`.
-- Content declaration: no product UI, person, customer data, testimonial, or third-party
-  logo is represented. The crop deliberately stops above the site's proof strip, so the
-  banner carries the headline and the opening paragraphs but no app screenshot.
+- Distributed SHA-256: `3ba553d9cc8900bb4c6a7c3c9948a99eb58353335bf2deb15f67a9ada2dc701f`.
+- Content declaration: no product UI, person, customer data or testimonial is represented;
+  the only third-party mark is the LinkedIn glyph on one call-to-action button. The crop
+  deliberately stops above the site's client strip, so the banner carries the headline and
+  the opening paragraph but no app screenshot.
 
 ## `assets/github-activity.svg`
 
@@ -72,3 +73,7 @@ was replaced by a capture of the site itself: the profile no longer opens with s
 artwork, and the banner now changes only when the site does. It still is presentation, not
 evidence of product functionality — product claims in the profile link to public
 repositories, case studies, product sites, or App Store pages.
+
+On 2026-11-04 the banner was recaptured when ogamlabs.com moved to a centred hero that names
+three apps (CholloGas, Mulligan and Hilo). The site still names the employer; the banner
+shows it exactly as published.
