@@ -1,51 +1,67 @@
 ![The ogamlabs.com home page: Oscar Canton, Senior iOS Engineer, Madrid](assets/profile-banner.png)
 
+<div align="center">
+
+[**Portfolio**](https://ogamlabs.com) · [**LinkedIn**](https://www.linkedin.com/in/oscarcantongarcia/) · [**Contact**](mailto:soporte@ogamlabs.com)
+
+</div>
+
 ![GitHub activity since 2017, private repositories included: contributions this year, active days, longest streak, pull requests and repositories](assets/github-activity.svg)
 
 ![Contribution calendar for the last 53 weeks, private repositories included, with the date it was counted](assets/github-calendar.svg)
 
-I work at VASS. Since late 2022 I have been on the Inditex account, on the app
-that store staff across the group use every day, and since 2025 I lead its iOS
-team. Before that I moved through banking and retail for other clients of ours:
-Santander, Mercadona, Unicaja, Banco Pichincha. All of those are client
-projects — VASS is the employer.
+## 👋 Hi, I'm Oscar
 
-Then there is my own work, which I sign as OgamLabs. Two apps on the App Store,
-and I keep their API, their database and their server running myself.
+- 🏢 **Day job** — iOS team lead at VASS. Since late 2022 I have been on the Inditex account, on the app that store staff across the group use every day, and since 2025 I lead its iOS team.
+- 🏦 **Before that** — banking and retail for other VASS clients: Santander, Mercadona, Unicaja, Banco Pichincha.
+- 🧪 **Own work** — signed as OgamLabs: two apps on the App Store, and I keep their API, their database and their server running myself.
+- 💬 **Happy to talk about** — senior iOS work, leading a team, architecture, or developer tooling.
 
-Based in Madrid. Happy to talk about senior iOS work, leading a team,
-architecture, or developer tooling.
-
-**[Portfolio](https://ogamlabs.com)** ·
-**[LinkedIn](https://www.linkedin.com/in/oscarcantongarcia/)** ·
-**[Contact](mailto:soporte@ogamlabs.com)**
+<sub>All of the companies above are client projects; VASS is the employer.</sub>
 
 ## Selected work
 
+<table>
+<tr>
+<td width="50%" valign="top">
+
 ### CholloGas
 
-Fuel prices across Spain and France, from the official open data. The app is
-Swift and SwiftUI; the API is TypeScript on Fastify over PostgreSQL, and I
-operate it. The public engineering case study covers the Swift 6 offline-first
-client, the official-data ingestion and the production operations — without
-exposing the product source.
+📱 **App Store** · Swift, SwiftUI · TypeScript, Fastify, PostgreSQL
+
+Fuel prices across Spain and France, from the official open data. I build the
+app and operate its API. The public engineering case study covers the Swift 6
+offline-first client, the official-data ingestion and the production operations
+— without exposing the product source.
 
 [Product site](https://chollogas.ogamlabs.com) ·
 [App Store](https://apps.apple.com/es/app/chollogas-gasolineras-baratas/id6773014516) ·
 [Engineering case study](https://github.com/magnoscg/chollogas-case-study)
 
+</td>
+<td width="50%" valign="top">
+
 ### Hilo
 
-A published SwiftUI word game: five words hiding one common thread, one short
-round a day. 4,015 original puzzles, 11 store locales, 1,128 passing tests. The
-long part was not the game but the pipeline that generates, validates and
-reviews the catalogue and the store assets.
+🧩 A published SwiftUI word game: five words hiding one common thread, one short
+round a day.
+
+4,015 original puzzles, 11 store locales, 1,128 passing tests. The long part was
+not the game but the pipeline that generates, validates and reviews the
+catalogue and the store assets.
 
 [Product site](https://hilo.ogamlabs.com) ·
 [App Store](https://apps.apple.com/es/app/id6779929637) ·
 [Engineering case study](https://github.com/magnoscg/hilo-case-study)
 
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
 ### iOS Architecture Reference
+
+🏗️ **Open source** · Swift 6, SwiftUI, Swift Testing
 
 A real Xcode application that builds, not a diagram: a single app target
 inspired by Clean Architecture, with MVVM, typed Router navigation and manual
@@ -55,7 +71,12 @@ hold the boundaries in place, with zero third-party package dependencies.
 [Code and decisions](https://github.com/magnoscg/ios-architecture-reference) ·
 [CI checks](https://github.com/magnoscg/ios-architecture-reference/actions/workflows/ci.yml)
 
+</td>
+<td width="50%" valign="top">
+
 ### AnvilCLI
+
+⚒️ **Open source** · Go, Bubble Tea · generates Swift 6 projects
 
 A Go CLI that sets up iOS projects with Clean Architecture, MVVM, Router
 navigation and optional AI coding packs. Its transactional generator validates
@@ -66,13 +87,17 @@ every destination before it writes and never overwrites a file.
 [Code and security](https://github.com/magnoscg/anvil) ·
 [CI checks](https://github.com/magnoscg/anvil/actions/workflows/ci.yml)
 
+</td>
+</tr>
+</table>
+
 ## AI-assisted engineering in development
 
 Two tools I built because I needed them. Each has a public case study; the
 tools themselves are not released yet.
 
 <details>
-<summary>PRDPlanner and HarnessHub</summary>
+<summary><b>🤖 PRDPlanner and HarnessHub</b></summary>
 
 ### PRDPlanner
 
@@ -94,14 +119,12 @@ packages. It is currently in local beta.
 
 ## Engineering focus
 
-- **Apple platforms** — Swift 6, SwiftUI, UIKit, Observation, SwiftData,
-  StoreKit 2, WidgetKit, App Intents
-- **Architecture** — Clean Architecture, MVVM, Router/Coordinator, modular SPM
-  packages, dependency injection
-- **Quality** — Swift Testing, XCTest, strict concurrency, accessibility,
-  performance profiling, CI/CD
-- **Product systems** — Go and TypeScript tooling, APIs, PostgreSQL, data
-  pipelines, code generation, MCP servers, release automation
+| | Area | What I use |
+| --- | --- | --- |
+| 🍎 | **Apple platforms** | Swift 6, SwiftUI, UIKit, Observation, SwiftData, StoreKit 2, WidgetKit, App Intents |
+| 🏛️ | **Architecture** | Clean Architecture, MVVM, Router/Coordinator, modular SPM packages, dependency injection |
+| ✅ | **Quality** | Swift Testing, XCTest, strict concurrency, accessibility, performance profiling, CI/CD |
+| 🧰 | **Product systems** | Go and TypeScript tooling, APIs, PostgreSQL, data pipelines, code generation, MCP servers, release automation |
 
 I like simple designs, decisions written down with their cost, and tests that
 protect behaviour rather than implementation.
