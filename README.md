@@ -12,12 +12,10 @@
 
 ## 👋 Hi, I'm Oscar
 
-- 🏢 **Day job** — iOS team lead at VASS. Since late 2022 I have been on the Inditex account, on the app that store staff across the group use every day, and since 2025 I lead its iOS team.
-- 🏦 **Before that** — banking and retail for other VASS clients: Santander, Mercadona, Unicaja, Banco Pichincha.
+- 🏢 **Day job** — iOS team lead as a consultant. Since late 2022 I have been on the Inditex account, on the app that store staff across the group use every day, and since 2025 I lead its iOS team.
+- 🏦 **Before that** — banking and retail client projects: Santander, Mercadona, Unicaja, Banco Pichincha.
 - 🧪 **Own work** — signed as OgamLabs: two apps on the App Store, and I keep their API, their database and their server running myself.
 - 💬 **Happy to talk about** — senior iOS work, leading a team, architecture, or developer tooling.
-
-<sub>All of the companies above are client projects; VASS is the employer.</sub>
 
 ## Selected work
 
