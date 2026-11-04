@@ -16,18 +16,17 @@ so the public profile can be reviewed without relying on an undocumented binary.
 - Reference SHA-256: `51a7241b289731cd5d080bb4ee6bedfa672dc74dfbf9248e12311840e7766db1`.
 - Capture method: headless Chrome at a 1700x1000 CSS viewport with device scale factor 2
   and scrollbars hidden.
-- Framing: the hero band, CSS rows 82 to 602 and columns 200 to 1500, centred on the page
-  and stopping above the divider of the client strip, so the status pill, the headline, the
-  opening paragraph and the calls to action are complete.
-- Transformation: cropped to 2600x1040 and resampled to 1280x512. Capturing at 2x and
-  reducing by 2.03 keeps the body copy legible at the width GitHub renders. No retouching,
+- Framing: the hero copy, CSS rows 150 to 500 and columns 412 to 1288, centred on the page.
+  The status pill, the headline and the opening paragraph are complete; the crop stops above
+  the call-to-action buttons, so the banner shows nothing that looks clickable but is not.
+- Transformation: cropped to 1750x700 and resampled to 1280x512. Capturing at 2x and
+  reducing by 1.37 keeps the body copy legible at the width GitHub renders. No retouching,
   recolouring or composition was applied.
 - Distributed dimensions: 1280x512.
-- Distributed SHA-256: `3ba553d9cc8900bb4c6a7c3c9948a99eb58353335bf2deb15f67a9ada2dc701f`.
-- Content declaration: no product UI, person, customer data or testimonial is represented;
-  the only third-party mark is the LinkedIn glyph on one call-to-action button. The crop
-  deliberately stops above the site's client strip, so the banner carries the headline and
-  the opening paragraph but no app screenshot.
+- Distributed SHA-256: `e31ee63e6d4851352fc8ce870b8cb9261ad8c5a175e5bc54b7bd3897d46d353f`.
+- Content declaration: no product UI, person, customer data, testimonial, or third-party
+  logo is represented. The crop deliberately stops above the site's buttons and client
+  strip, so the banner carries the headline and the opening paragraph but no app screenshot.
 
 ## `assets/github-activity.svg`
 

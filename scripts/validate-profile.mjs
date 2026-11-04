@@ -66,7 +66,7 @@ const EXPECTED_BANNER = Object.freeze({
   path: 'assets/profile-banner.png',
   width: 1280,
   height: 512,
-  sha256: '3ba553d9cc8900bb4c6a7c3c9948a99eb58353335bf2deb15f67a9ada2dc701f',
+  sha256: 'e31ee63e6d4851352fc8ce870b8cb9261ad8c5a175e5bc54b7bd3897d46d353f',
 });
 
 const EXPECTED_ACTIVITY = Object.freeze({
@@ -105,10 +105,10 @@ const REQUIRED_PROVENANCE_STATEMENTS = Object.freeze([
   '- Reference dimensions: 3400x2000.',
   '- Reference SHA-256: `51a7241b289731cd5d080bb4ee6bedfa672dc74dfbf9248e12311840e7766db1`.',
   '- Capture method: headless Chrome at a 1700x1000 CSS viewport with device scale factor 2 and scrollbars hidden.',
-  '- Transformation: cropped to 2600x1040 and resampled to 1280x512. Capturing at 2x and reducing by 2.03 keeps the body copy legible at the width GitHub renders. No retouching, recolouring or composition was applied.',
+  '- Transformation: cropped to 1750x700 and resampled to 1280x512. Capturing at 2x and reducing by 1.37 keeps the body copy legible at the width GitHub renders. No retouching, recolouring or composition was applied.',
   '- Distributed dimensions: 1280x512.',
   `- Distributed SHA-256: \`${EXPECTED_BANNER.sha256}\`.`,
-  '- Content declaration: no product UI, person, customer data or testimonial is represented; the only third-party mark is the LinkedIn glyph on one call-to-action button.',
+  '- Content declaration: no product UI, person, customer data, testimonial, or third-party logo is represented.',
   `- Asset: \`${EXPECTED_ACTIVITY.path}\`.`,
   `- Generator: \`${EXPECTED_ACTIVITY.generator}\`, run against the GitHub GraphQL API on a weekly schedule.`,
   `- Asset: \`${EXPECTED_CALENDAR.path}\`.`,
