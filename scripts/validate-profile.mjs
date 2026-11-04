@@ -19,6 +19,8 @@ const REQUIRED_LINKS = Object.freeze([
   'https://hilo.ogamlabs.com',
   'https://apps.apple.com/es/app/id6779929637',
   'https://github.com/magnoscg/hilo-case-study',
+  'https://mulligan.ogamlabs.com',
+  'https://apps.apple.com/app/id6808994619',
   'https://github.com/magnoscg/ios-architecture-reference',
   'https://github.com/magnoscg/ios-architecture-reference/actions/workflows/ci.yml',
   'https://github.com/magnoscg/anvil',
