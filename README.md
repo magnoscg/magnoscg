@@ -14,10 +14,12 @@
 
 - 🏢 **Day job** — iOS team lead as a consultant. Since late 2022 I have been on the Inditex account, on the app that store staff across the group use every day, and since 2025 I lead its iOS team.
 - 🏦 **Before that** — banking and retail client projects: Santander, Mercadona, Unicaja, Banco Pichincha.
-- 🧪 **Own work** — signed as OgamLabs: two apps on the App Store, and I keep their API, their database and their server running myself.
+- 🧪 **Own work** — signed as OgamLabs: three apps on the App Store, and I keep their API, their database and their server running myself.
 - 💬 **Happy to talk about** — senior iOS work, leading a team, architecture, or developer tooling.
 
 ## Selected work
+
+**📱 On the App Store**
 
 <table>
 <tr>
@@ -25,7 +27,7 @@
 
 ### CholloGas
 
-📱 **App Store** · Swift, SwiftUI · TypeScript, Fastify, PostgreSQL
+⛽ Swift, SwiftUI · TypeScript, Fastify, PostgreSQL
 
 Fuel prices across Spain and France, from the official open data. I build the
 app and operate its API. The public engineering case study covers the Swift 6
@@ -55,11 +57,33 @@ catalogue and the store assets.
 </td>
 </tr>
 <tr>
+<td colspan="2" valign="top">
+
+### Mulligan
+
+🃏 Swift 6, SwiftUI, GRDB · iPhone and iPad
+
+A free, fan-made deck builder for Marvel Champions: browse the card catalogue,
+build and validate decks, track the packs you own, read the rules and import
+decks from the community, which runs on its own OgamLabs backend. Decks stay on
+the device. English and Spanish, with more than 2,500 Swift Testing tests.
+
+[Product site](https://mulligan.ogamlabs.com) ·
+[App Store](https://apps.apple.com/app/id6808994619)
+
+</td>
+</tr>
+</table>
+
+**🧰 Open source**
+
+<table>
+<tr>
 <td width="50%" valign="top">
 
 ### iOS Architecture Reference
 
-🏗️ **Open source** · Swift 6, SwiftUI, Swift Testing
+🏗️ Swift 6, SwiftUI, Swift Testing
 
 A real Xcode application that builds, not a diagram: a single app target
 inspired by Clean Architecture, with MVVM, typed Router navigation and manual
@@ -74,7 +98,7 @@ hold the boundaries in place, with zero third-party package dependencies.
 
 ### AnvilCLI
 
-⚒️ **Open source** · Go, Bubble Tea · generates Swift 6 projects
+⚒️ Go, Bubble Tea · generates Swift 6 projects
 
 A Go CLI that sets up iOS projects with Clean Architecture, MVVM, Router
 navigation and optional AI coding packs. Its transactional generator validates
