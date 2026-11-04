@@ -49,7 +49,7 @@ reviews the catalogue and the store assets.
 
 A real Xcode application that builds, not a diagram: a single app target
 inspired by Clean Architecture, with MVVM, typed Router navigation and manual
-factory-based dependency injection. 194 Swift Testing cases across 27 suites
+factory-based dependency injection. 253 Swift Testing cases across 33 suites
 hold the boundaries in place, with zero third-party package dependencies.
 
 [Code and decisions](https://github.com/magnoscg/ios-architecture-reference) ·
@@ -60,7 +60,7 @@ hold the boundaries in place, with zero third-party package dependencies.
 A Go CLI that sets up iOS projects with Clean Architecture, MVVM, Router
 navigation and optional AI coding packs. Its transactional generator validates
 every destination before it writes and never overwrites a file.
-421 automated tests; its 34 provenance-tracked skills include
+465 automated tests; its 34 provenance-tracked skills include
 25 self-contained Swift 6 examples.
 
 [Code and security](https://github.com/magnoscg/anvil) ·

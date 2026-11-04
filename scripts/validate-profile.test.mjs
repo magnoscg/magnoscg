@@ -180,10 +180,10 @@ test('Anvil public evidence cannot drift away from its verified totals', async (
   const fixture = await makeFixture(t);
   const readmePath = join(fixture, 'README.md');
   const markdown = await readFile(readmePath, 'utf8');
-  await writeFile(readmePath, markdown.replace('421 automated tests', '420 automated tests'));
+  await writeFile(readmePath, markdown.replace('465 automated tests', '464 automated tests'));
 
   const result = await validateProfile(fixture);
-  assert(result.errors.some((error) => error.includes('421 automated tests')));
+  assert(result.errors.some((error) => error.includes('465 automated tests')));
 });
 
 test('the superseded SPM-module claim cannot come back', async (t) => {
@@ -226,11 +226,11 @@ test('the Swift architecture proof cannot drift from its verified test total', a
   const markdown = await readFile(readmePath, 'utf8');
   await writeFile(
     readmePath,
-    markdown.replace('194 Swift Testing cases', '193 Swift Testing cases'),
+    markdown.replace('253 Swift Testing cases', '252 Swift Testing cases'),
   );
 
   const result = await validateProfile(fixture);
-  assert(result.errors.some((error) => error.includes('194 Swift Testing cases across 27 suites')));
+  assert(result.errors.some((error) => error.includes('253 Swift Testing cases across 33 suites')));
 });
 
 test('the CV remains disconnected while it is under revision', async (t) => {

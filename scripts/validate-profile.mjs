@@ -29,7 +29,7 @@ const REQUIRED_LINKS = Object.freeze([
 
 const ANVIL_PUBLIC_PROOF = Object.freeze([
   'transactional generator',
-  '421 automated tests',
+  '465 automated tests',
   '34 provenance-tracked skills',
   '25 self-contained Swift 6 examples',
 ]);
@@ -48,7 +48,7 @@ const ARCHITECTURE_PUBLIC_PROOF = Object.freeze([
   'MVVM',
   'typed Router navigation',
   'manual factory-based dependency injection',
-  '194 Swift Testing cases across 27 suites',
+  '253 Swift Testing cases across 33 suites',
   'zero third-party package dependencies',
 ]);
 
@@ -56,6 +56,8 @@ const SUPERSEDED_ARCHITECTURE_CLAIMS = Object.freeze([
   'Four Swift Package modules',
   '15 Swift Testing checks',
   'dependency direction visible at compile time',
+  '194 Swift Testing cases',
+  '421 automated tests',
 ]);
 
 const EXPECTED_BANNER = Object.freeze({
