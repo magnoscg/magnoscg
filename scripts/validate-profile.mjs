@@ -65,8 +65,8 @@ const SUPERSEDED_ARCHITECTURE_CLAIMS = Object.freeze([
 const EXPECTED_BANNER = Object.freeze({
   path: 'assets/profile-banner.png',
   width: 1280,
-  height: 512,
-  sha256: 'e31ee63e6d4851352fc8ce870b8cb9261ad8c5a175e5bc54b7bd3897d46d353f',
+  height: 352,
+  sha256: '695880e8efc5d94b057a83e755232168d16ddf02e4a4b310bf10aa8c167b1bf7',
 });
 
 const EXPECTED_ACTIVITY = Object.freeze({
@@ -105,8 +105,8 @@ const REQUIRED_PROVENANCE_STATEMENTS = Object.freeze([
   '- Reference dimensions: 3400x2000.',
   '- Reference SHA-256: `51a7241b289731cd5d080bb4ee6bedfa672dc74dfbf9248e12311840e7766db1`.',
   '- Capture method: headless Chrome at a 1700x1000 CSS viewport with device scale factor 2 and scrollbars hidden.',
-  '- Transformation: cropped to 1750x700 and resampled to 1280x512. Capturing at 2x and reducing by 1.37 keeps the body copy legible at the width GitHub renders. No retouching, recolouring or composition was applied.',
-  '- Distributed dimensions: 1280x512.',
+  '- Transformation: cropped to 1750x700 and resampled to 1280x512, then cut to rows 46 to 398 of that image (1280x352) so the opening paragraph, which names the employer, is left out. Capturing at 2x and reducing by 1.37 keeps the headline legible at the width GitHub renders. No retouching, recolouring or composition was applied.',
+  '- Distributed dimensions: 1280x352.',
   `- Distributed SHA-256: \`${EXPECTED_BANNER.sha256}\`.`,
   '- Content declaration: no product UI, person, customer data, testimonial, or third-party logo is represented.',
   `- Asset: \`${EXPECTED_ACTIVITY.path}\`.`,

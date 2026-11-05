@@ -16,17 +16,19 @@ so the public profile can be reviewed without relying on an undocumented binary.
 - Reference SHA-256: `51a7241b289731cd5d080bb4ee6bedfa672dc74dfbf9248e12311840e7766db1`.
 - Capture method: headless Chrome at a 1700x1000 CSS viewport with device scale factor 2
   and scrollbars hidden.
-- Framing: the hero copy, CSS rows 150 to 500 and columns 412 to 1288, centred on the page.
-  The status pill, the headline and the opening paragraph are complete; the crop stops above
-  the call-to-action buttons, so the banner shows nothing that looks clickable but is not.
-- Transformation: cropped to 1750x700 and resampled to 1280x512. Capturing at 2x and
-  reducing by 1.37 keeps the body copy legible at the width GitHub renders. No retouching,
-  recolouring or composition was applied.
-- Distributed dimensions: 1280x512.
-- Distributed SHA-256: `e31ee63e6d4851352fc8ce870b8cb9261ad8c5a175e5bc54b7bd3897d46d353f`.
+- Framing: the hero headline, CSS rows 181 to 422 and columns 412 to 1288, centred on the
+  page. The status pill and the headline are complete; the crop stops above the opening
+  paragraph and the call-to-action buttons, so the banner names no employer and shows
+  nothing that looks clickable but is not.
+- Transformation: cropped to 1750x700 and resampled to 1280x512, then cut to rows 46 to 398
+  of that image (1280x352) so the opening paragraph, which names the employer, is left out.
+  Capturing at 2x and reducing by 1.37 keeps the headline legible at the width GitHub
+  renders. No retouching, recolouring or composition was applied.
+- Distributed dimensions: 1280x352.
+- Distributed SHA-256: `695880e8efc5d94b057a83e755232168d16ddf02e4a4b310bf10aa8c167b1bf7`.
 - Content declaration: no product UI, person, customer data, testimonial, or third-party
   logo is represented. The crop deliberately stops above the site's buttons and client
-  strip, so the banner carries the headline and the opening paragraph but no app screenshot.
+  strip, so the banner carries the status pill and the headline but no app screenshot.
 
 ## `assets/github-activity.svg`
 

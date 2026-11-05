@@ -45,8 +45,8 @@ test('the current profile satisfies its public-proof invariants', async () => {
   assert.deepEqual(result.errors, []);
   assert.deepEqual(result.banner, {
     width: 1280,
-    height: 512,
-    sha256: 'e31ee63e6d4851352fc8ce870b8cb9261ad8c5a175e5bc54b7bd3897d46d353f',
+    height: 352,
+    sha256: '695880e8efc5d94b057a83e755232168d16ddf02e4a4b310bf10aa8c167b1bf7',
   });
 });
 
@@ -269,7 +269,7 @@ test('the banner dimensions cannot drift', async (t) => {
   await writeFile(bannerPath, banner);
 
   const result = await validateProfile(fixture);
-  assert(result.errors.some((error) => error.includes('expected 1280x512')));
+  assert(result.errors.some((error) => error.includes('expected 1280x352')));
 });
 
 test('the banner bytes cannot drift while dimensions stay unchanged', async (t) => {
@@ -290,7 +290,7 @@ test('banner provenance is required and hash-bound', async (t) => {
   await writeFile(
     provenancePath,
     provenance.replace(
-      'e31ee63e6d4851352fc8ce870b8cb9261ad8c5a175e5bc54b7bd3897d46d353f',
+      '695880e8efc5d94b057a83e755232168d16ddf02e4a4b310bf10aa8c167b1bf7',
       '0000000000000000000000000000000000000000000000000000000000000000',
     ),
   );
