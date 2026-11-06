@@ -25,6 +25,9 @@ const REQUIRED_LINKS = Object.freeze([
   'https://github.com/magnoscg/ios-architecture-reference/actions/workflows/ci.yml',
   'https://github.com/magnoscg/anvil',
   'https://github.com/magnoscg/anvil/actions/workflows/ci.yml',
+  'https://magnoscg.github.io/agent-build/',
+  'https://github.com/magnoscg/agent-build',
+  'https://www.npmjs.com/package/@magnoscg/agent-build',
   'https://github.com/magnoscg/prdplanner-case-study',
   'https://github.com/magnoscg/harnesshub-case-study',
 ]);

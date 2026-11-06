@@ -111,6 +111,24 @@ every destination before it writes and never overwrites a file.
 
 </td>
 </tr>
+<tr>
+<td colspan="2" valign="top">
+
+### agent-build
+
+🧱 TypeScript, Web Animations · no runtime dependencies
+
+A library that pokes fun at the viral "20 AI agents built my site" videos. One
+button hides the page and a simulated swarm of agent cursors rebuilds it, block
+by block, then says it was a simulation. It runs under a strict Content Security
+Policy with Trusted Types, in eight languages.
+
+[Live demo](https://magnoscg.github.io/agent-build/) ·
+[Code](https://github.com/magnoscg/agent-build) ·
+[npm](https://www.npmjs.com/package/@magnoscg/agent-build)
+
+</td>
+</tr>
 </table>
 
 ## AI-assisted engineering in development
