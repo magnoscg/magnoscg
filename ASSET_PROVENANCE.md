@@ -1,6 +1,6 @@
 # Asset provenance
 
-This repository uses three local images. Their origin and transformation are recorded here
+This repository uses nine local images: the banner, two drawings and one image per project. Their origin and transformation are recorded here
 so the public profile can be reviewed without relying on an undocumented binary.
 
 ## `assets/profile-banner.png`
@@ -68,6 +68,52 @@ so the public profile can be reviewed without relying on an undocumented binary.
 - Content declaration: one rectangle per day with its contribution count mapped to a shade,
   plus the totals and the count date. No repository name, commit message, product UI,
   person or third-party logo is represented.
+
+## Project images
+
+One image per project sits at the top of its entry in the README, so a reader sees the real product before reading about it. None of them is generated: no generative model was used, and every screen is a real capture. Their hashes are locked by the validator.
+
+### `assets/projects/chollogas.png`
+
+- Asset: `assets/projects/chollogas.png`.
+- Source: three screenshots of the published app (map, list, station detail), as published on ogamlabs.com. The app is in Spanish.
+- Transformation: screens placed side by side on a tinted background with rounded corners, at 1200x750. Screen contents are not altered.
+- Distributed SHA-256: `bb38a41021a8e92906f1a68c2aa7ee1b179109f1a0b5c1340018d2fccbd8d295`.
+
+### `assets/projects/hilo.png`
+
+- Asset: `assets/projects/hilo.png`.
+- Source: three English screenshots of the published app (round, solved puzzle, statistics), as published on ogamlabs.com.
+- Transformation: screens placed side by side on a tinted background with rounded corners, at 1200x750. Screen contents are not altered.
+- Distributed SHA-256: `f629000fc199dae5ce59ce3512b7fd69459bc9fc8d71b18746d48d47e4358a57`.
+
+### `assets/projects/mulligan.png`
+
+- Asset: `assets/projects/mulligan.png`.
+- Source: two English screenshots of the published app (builder, deck analysis), as published on ogamlabs.com. The catalogue screenshot is left out because it is dominated by licensed card art; the builder shows one small card thumbnail.
+- Transformation: screens placed on a tinted background with rounded corners, at 1800x640; the screens are cropped at the bottom. Screen contents are not altered.
+- Distributed SHA-256: `3041be78550530abae9ececd261527a8e901a2495de8f7fa1b30f0c1f854b7f6`.
+
+### `assets/projects/ios-architecture.png`
+
+- Asset: `assets/projects/ios-architecture.png`.
+- Source: `docs/images/architecture-list-dark.png` and `architecture-detail-dark.png` from `magnoscg/ios-architecture-reference`, documented in that repository.
+- Transformation: screens placed side by side on a tinted background with rounded corners, at 1200x750. Screen contents are not altered.
+- Distributed SHA-256: `86f99d0ec171055f9be43f6e3ccb4b82d86a2cee2293b6e60c02ede01747aa09`.
+
+### `assets/projects/anvil.png`
+
+- Asset: `assets/projects/anvil.png`.
+- Source: `docs/images/anvil-init.png` from `magnoscg/anvil`, a capture of the real terminal interface documented in that repository.
+- Transformation: placed on a tinted background with rounded corners and scaled up, at 1200x750. Screen contents are not altered.
+- Distributed SHA-256: `a20f1b040f10f9cdd989995dc9e9c8e56e1875a0daa198a932a749e53ee2ee0a`.
+
+### `assets/projects/agent-build.gif`
+
+- Asset: `assets/projects/agent-build.gif`.
+- Source: the promotional recording of the public demo at `https://magnoscg.github.io/agent-build/`, made on 2026-11-06 with version 1.0.3 of the snippet on screen.
+- Transformation: cropped to the browser window, sped up 1.5 times, reduced to 760x430 at 12 frames per second with a 128-colour palette. Content is not altered.
+- Distributed SHA-256: `cd555753a838d83d7960d245efa2b07c55f6389669e937d708c25f7427d64907`.
 
 Until 2026-08-06 this banner was an AI-generated derivative of an OgamLabs social card. It
 was replaced by a capture of the site itself: the profile no longer opens with synthetic
