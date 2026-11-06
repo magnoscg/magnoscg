@@ -490,3 +490,22 @@ test('every project image needs its provenance', async (t) => {
 
   assert(result.errors.some((error) => error.includes('assets/projects/anvil.png')));
 });
+
+test('a project image must open its project', async (t) => {
+  const fixture = await makeFixture(t);
+  const readmePath = join(fixture, 'README.md');
+  const markdown = await readFile(readmePath, 'utf8');
+  await writeFile(
+    readmePath,
+    markdown.replace(
+      '(assets/projects/anvil.png)](https://github.com/magnoscg/anvil)',
+      '(assets/projects/anvil.png)](https://example.com)',
+    ),
+  );
+
+  const result = await validateProfile(fixture);
+
+  assert(result.errors.includes(
+    'README.md: assets/projects/anvil.png must link to https://github.com/magnoscg/anvil',
+  ));
+});
