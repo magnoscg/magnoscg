@@ -90,9 +90,9 @@ One image per project sits at the top of its entry in the README, so a reader se
 ### `assets/projects/mulligan.png`
 
 - Asset: `assets/projects/mulligan.png`.
-- Source: two English screenshots of the published app (builder, deck analysis), as published on ogamlabs.com. The catalogue screenshot is left out because it is dominated by licensed card art; the builder shows one small card thumbnail.
+- Source: three English screenshots of the published app (card catalogue, builder, deck analysis), as published on ogamlabs.com. The catalogue shows Marvel Champions card art, which belongs to its rights holders; Mulligan is a free, fan-made app and the art appears only as part of the app's own interface.
 - Transformation: screens placed on a tinted background with rounded corners, at 1800x640; the screens are cropped at the bottom. Screen contents are not altered.
-- Distributed SHA-256: `3041be78550530abae9ececd261527a8e901a2495de8f7fa1b30f0c1f854b7f6`.
+- Distributed SHA-256: `d0adc6d656e04557e94e495bec4bda0ab39e94b2971bf255353a33e60921bbb7`.
 
 ### `assets/projects/ios-architecture.png`
 

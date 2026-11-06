@@ -68,7 +68,7 @@ catalogue and the store assets.
 
 🃏 Swift 6, SwiftUI, GRDB · iPhone and iPad
 
-![Mulligan on iPhone: the deck builder and the analysis of a valid deck](assets/projects/mulligan.png)
+![Mulligan on iPhone: the card catalogue with Spider-Man and Peter Parker cards, the deck builder and the analysis of a valid deck](assets/projects/mulligan.png)
 
 A free, fan-made deck builder for Marvel Champions: browse the card catalogue,
 build and validate decks, track the packs you own, read the rules and import

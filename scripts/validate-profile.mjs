@@ -86,7 +86,7 @@ const EXPECTED_CALENDAR = Object.freeze({
 const PROJECT_IMAGES = Object.freeze([
   Object.freeze({ path: 'assets/projects/chollogas.png', sha256: 'bb38a41021a8e92906f1a68c2aa7ee1b179109f1a0b5c1340018d2fccbd8d295' }),
   Object.freeze({ path: 'assets/projects/hilo.png', sha256: 'f629000fc199dae5ce59ce3512b7fd69459bc9fc8d71b18746d48d47e4358a57' }),
-  Object.freeze({ path: 'assets/projects/mulligan.png', sha256: '3041be78550530abae9ececd261527a8e901a2495de8f7fa1b30f0c1f854b7f6' }),
+  Object.freeze({ path: 'assets/projects/mulligan.png', sha256: 'd0adc6d656e04557e94e495bec4bda0ab39e94b2971bf255353a33e60921bbb7' }),
   Object.freeze({ path: 'assets/projects/ios-architecture.png', sha256: '86f99d0ec171055f9be43f6e3ccb4b82d86a2cee2293b6e60c02ede01747aa09' }),
   Object.freeze({ path: 'assets/projects/anvil.png', sha256: 'a20f1b040f10f9cdd989995dc9e9c8e56e1875a0daa198a932a749e53ee2ee0a' }),
   Object.freeze({ path: 'assets/projects/agent-build.gif', sha256: 'cd555753a838d83d7960d245efa2b07c55f6389669e937d708c25f7427d64907' }),
