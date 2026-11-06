@@ -29,7 +29,7 @@
 
 ⛽ Swift, SwiftUI · TypeScript, Fastify, PostgreSQL
 
-![CholloGas on iPhone: fuel prices on a map of Barcelona, a list of stations and the price history of one station](assets/projects/chollogas.png)
+[![CholloGas on iPhone: fuel prices on a map of Barcelona, a list of stations and the price history of one station](assets/projects/chollogas.png)](https://github.com/magnoscg/chollogas-case-study)
 
 Fuel prices across Spain and France, from the official open data. I build the
 app and operate its API. The public engineering case study covers the Swift 6
@@ -47,7 +47,7 @@ offline-first client, the official-data ingestion and the production operations
 
 🧩 A published SwiftUI word game
 
-![Hilo on iPhone: a round in progress, the solved puzzle with its five words, and the player statistics](assets/projects/hilo.png)
+[![Hilo on iPhone: a round in progress, the solved puzzle with its five words, and the player statistics](assets/projects/hilo.png)](https://github.com/magnoscg/hilo-case-study)
 
 Five words hiding one common thread, one short round a day.
 
@@ -68,7 +68,7 @@ catalogue and the store assets.
 
 🃏 Swift 6, SwiftUI, GRDB · iPhone and iPad
 
-![Mulligan on iPhone: the card catalogue with Spider-Man and Peter Parker cards, the deck builder and the analysis of a valid deck](assets/projects/mulligan.png)
+[![Mulligan on iPhone: the card catalogue with Spider-Man and Peter Parker cards, the deck builder and the analysis of a valid deck](assets/projects/mulligan.png)](https://mulligan.ogamlabs.com)
 
 A free, fan-made deck builder for Marvel Champions: browse the card catalogue,
 build and validate decks, track the packs you own, read the rules and import
@@ -92,7 +92,7 @@ the device. English and Spanish, with more than 2,500 Swift Testing tests.
 
 🏗️ Swift 6, SwiftUI, Swift Testing
 
-![iOS Architecture Reference on iPhone, dark mode: the feature list and the detail of the Clean Architecture layers](assets/projects/ios-architecture.png)
+[![iOS Architecture Reference on iPhone, dark mode: the feature list and the detail of the Clean Architecture layers](assets/projects/ios-architecture.png)](https://github.com/magnoscg/ios-architecture-reference)
 
 A real Xcode application that builds, not a diagram: a single app target
 inspired by Clean Architecture, with MVVM, typed Router navigation and manual
@@ -109,7 +109,7 @@ hold the boundaries in place, with zero third-party package dependencies.
 
 ⚒️ Go, Bubble Tea · generates Swift 6 projects
 
-![AnvilCLI in the terminal: the start screen, which offers to create an iOS project or install AI coding tools](assets/projects/anvil.png)
+[![AnvilCLI in the terminal: the start screen, which offers to create an iOS project or install AI coding tools](assets/projects/anvil.png)](https://github.com/magnoscg/anvil)
 
 A Go CLI that sets up iOS projects with Clean Architecture, MVVM, Router
 navigation and optional AI coding packs. Its transactional generator validates
@@ -129,7 +129,7 @@ every destination before it writes and never overwrites a file.
 
 🧱 TypeScript, Web Animations · no runtime dependencies
 
-![agent-build running: idle agent cursors complain in speech bubbles, the button is pressed, and the swarm rebuilds the page while the HUD says it is a simulation](assets/projects/agent-build.gif)
+[![agent-build running: idle agent cursors complain in speech bubbles, the button is pressed, and the swarm rebuilds the page while the HUD says it is a simulation](assets/projects/agent-build.gif)](https://github.com/magnoscg/agent-build)
 
 A library that pokes fun at the viral "20 AI agents built my site" videos. One
 button hides the page and a simulated swarm of agent cursors rebuilds it, block

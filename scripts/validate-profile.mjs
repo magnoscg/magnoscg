@@ -84,12 +84,12 @@ const EXPECTED_CALENDAR = Object.freeze({
 
 // One real image per project, in the order the README shows them.
 const PROJECT_IMAGES = Object.freeze([
-  Object.freeze({ path: 'assets/projects/chollogas.png', sha256: 'bb38a41021a8e92906f1a68c2aa7ee1b179109f1a0b5c1340018d2fccbd8d295' }),
-  Object.freeze({ path: 'assets/projects/hilo.png', sha256: 'f629000fc199dae5ce59ce3512b7fd69459bc9fc8d71b18746d48d47e4358a57' }),
-  Object.freeze({ path: 'assets/projects/mulligan.png', sha256: 'd0adc6d656e04557e94e495bec4bda0ab39e94b2971bf255353a33e60921bbb7' }),
-  Object.freeze({ path: 'assets/projects/ios-architecture.png', sha256: '86f99d0ec171055f9be43f6e3ccb4b82d86a2cee2293b6e60c02ede01747aa09' }),
-  Object.freeze({ path: 'assets/projects/anvil.png', sha256: 'a20f1b040f10f9cdd989995dc9e9c8e56e1875a0daa198a932a749e53ee2ee0a' }),
-  Object.freeze({ path: 'assets/projects/agent-build.gif', sha256: 'cd555753a838d83d7960d245efa2b07c55f6389669e937d708c25f7427d64907' }),
+  Object.freeze({ path: 'assets/projects/chollogas.png', sha256: 'bb38a41021a8e92906f1a68c2aa7ee1b179109f1a0b5c1340018d2fccbd8d295', link: 'https://github.com/magnoscg/chollogas-case-study' }),
+  Object.freeze({ path: 'assets/projects/hilo.png', sha256: 'f629000fc199dae5ce59ce3512b7fd69459bc9fc8d71b18746d48d47e4358a57', link: 'https://github.com/magnoscg/hilo-case-study' }),
+  Object.freeze({ path: 'assets/projects/mulligan.png', sha256: 'd0adc6d656e04557e94e495bec4bda0ab39e94b2971bf255353a33e60921bbb7', link: 'https://mulligan.ogamlabs.com' }),
+  Object.freeze({ path: 'assets/projects/ios-architecture.png', sha256: '86f99d0ec171055f9be43f6e3ccb4b82d86a2cee2293b6e60c02ede01747aa09', link: 'https://github.com/magnoscg/ios-architecture-reference' }),
+  Object.freeze({ path: 'assets/projects/anvil.png', sha256: 'a20f1b040f10f9cdd989995dc9e9c8e56e1875a0daa198a932a749e53ee2ee0a', link: 'https://github.com/magnoscg/anvil' }),
+  Object.freeze({ path: 'assets/projects/agent-build.gif', sha256: 'cd555753a838d83d7960d245efa2b07c55f6389669e937d708c25f7427d64907', link: 'https://github.com/magnoscg/agent-build' }),
 ]);
 const MAX_PROJECT_IMAGE_BYTES = 4 * 1024 * 1024;
 
@@ -131,7 +131,7 @@ const REQUIRED_PROVENANCE_STATEMENTS = Object.freeze([
 
 export function markdownReferences(markdown) {
   const references = [];
-  const pattern = /(!?)\[([^\]]*)\]\(([^)\s]+)(?:\s+["'][^"']*["'])?\)/g;
+  const pattern = /(!?)\[([^[\]]*)\]\(([^)\s]+)(?:\s+["'][^"']*["'])?\)/g;
 
   for (const match of markdown.matchAll(pattern)) {
     references.push({
@@ -329,6 +329,11 @@ export async function validateProfile(root = process.cwd()) {
         errors.add(`README.md: project image ${index + 1} must be ${path}`);
       }
     });
+    for (const { path, link } of PROJECT_IMAGES) {
+      if (!markdown.includes(`](${path})](${link})`)) {
+        errors.add(`README.md: ${path} must link to ${link}`);
+      }
+    }
   }
 
   if (/(?:file:\/\/|\/Users\/|\/home\/|[A-Za-z]:\\)/i.test(markdown)) {
