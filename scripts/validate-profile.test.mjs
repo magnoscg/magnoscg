@@ -9,6 +9,15 @@ import { validateProfile } from './validate-profile.mjs';
 
 const PROJECT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
+const PROJECT_IMAGE_FILES = Object.freeze([
+  'chollogas.png',
+  'hilo.png',
+  'mulligan.png',
+  'ios-architecture.png',
+  'anvil.png',
+  'agent-build.gif',
+]);
+
 async function makeFixture(t) {
   const fixture = await mkdtemp(join(tmpdir(), 'magnoscg-profile-'));
   await mkdir(join(fixture, 'assets'));
@@ -30,6 +39,13 @@ async function makeFixture(t) {
     join(PROJECT_ROOT, 'assets/github-calendar.svg'),
     join(fixture, 'assets/github-calendar.svg'),
   );
+  await mkdir(join(fixture, 'assets/projects'));
+  for (const image of PROJECT_IMAGE_FILES) {
+    await copyFile(
+      join(PROJECT_ROOT, 'assets/projects', image),
+      join(fixture, 'assets/projects', image),
+    );
+  }
   for (const workflow of ['profile-check.yml', 'refresh-stats.yml']) {
     await copyFile(
       join(PROJECT_ROOT, '.github/workflows', workflow),
@@ -93,7 +109,7 @@ test('a fourth image is rejected', async (t) => {
   await writeFile(readmePath, `${markdown}\n![Extra](assets/profile-banner.png)\n`);
   const result = await validateProfile(fixture);
 
-  assert(result.errors.some((error) => error.includes('exactly three local images')));
+  assert(result.errors.some((error) => error.includes('exactly nine local images')));
 });
 
 test('the calendar cannot be swapped for another local file', async (t) => {
@@ -428,4 +444,49 @@ test('a project demoted from a heading to bold text loses its label', async (t) 
 
   const result = await validateProfile(fixture);
   assert(result.errors.some((error) => error.includes('PRDPlanner needs its')));
+});
+
+test('a project image cannot change without updating its locked hash', async (t) => {
+  const fixture = await makeFixture(t);
+  await writeFile(join(fixture, 'assets/projects/hilo.png'), 'not the reviewed image');
+
+  const result = await validateProfile(fixture);
+
+  assert(result.errors.some((error) => (
+    error.startsWith('assets/projects/hilo.png: SHA-256 must be')
+  )));
+});
+
+test('a missing project image is reported', async (t) => {
+  const fixture = await makeFixture(t);
+  await rm(join(fixture, 'assets/projects/agent-build.gif'));
+
+  const result = await validateProfile(fixture);
+
+  assert(result.errors.includes('assets/projects/agent-build.gif: file is missing or unreadable'));
+});
+
+test('project images must keep their order in the README', async (t) => {
+  const fixture = await makeFixture(t);
+  const readmePath = join(fixture, 'README.md');
+  const markdown = await readFile(readmePath, 'utf8');
+  await writeFile(
+    readmePath,
+    markdown.replace('assets/projects/chollogas.png', 'assets/projects/other.png'),
+  );
+
+  const result = await validateProfile(fixture);
+
+  assert(result.errors.includes('README.md: project image 1 must be assets/projects/chollogas.png'));
+});
+
+test('every project image needs its provenance', async (t) => {
+  const fixture = await makeFixture(t);
+  const provenancePath = join(fixture, 'ASSET_PROVENANCE.md');
+  const provenance = await readFile(provenancePath, 'utf8');
+  await writeFile(provenancePath, provenance.replace('- Asset: `assets/projects/anvil.png`.', ''));
+
+  const result = await validateProfile(fixture);
+
+  assert(result.errors.some((error) => error.includes('assets/projects/anvil.png')));
 });

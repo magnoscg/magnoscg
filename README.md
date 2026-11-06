@@ -29,6 +29,8 @@
 
 ⛽ Swift, SwiftUI · TypeScript, Fastify, PostgreSQL
 
+![CholloGas on iPhone: fuel prices on a map of Barcelona, a list of stations and the price history of one station](assets/projects/chollogas.png)
+
 Fuel prices across Spain and France, from the official open data. I build the
 app and operate its API. The public engineering case study covers the Swift 6
 offline-first client, the official-data ingestion and the production operations
@@ -43,8 +45,11 @@ offline-first client, the official-data ingestion and the production operations
 
 ### Hilo
 
-🧩 A published SwiftUI word game: five words hiding one common thread, one short
-round a day.
+🧩 A published SwiftUI word game
+
+![Hilo on iPhone: a round in progress, the solved puzzle with its five words, and the player statistics](assets/projects/hilo.png)
+
+Five words hiding one common thread, one short round a day.
 
 4,015 original puzzles, 11 store locales, 1,128 passing tests. The long part was
 not the game but the pipeline that generates, validates and reviews the
@@ -62,6 +67,8 @@ catalogue and the store assets.
 ### Mulligan
 
 🃏 Swift 6, SwiftUI, GRDB · iPhone and iPad
+
+![Mulligan on iPhone: the card catalogue with Spider-Man and Peter Parker cards, the deck builder and the analysis of a valid deck](assets/projects/mulligan.png)
 
 A free, fan-made deck builder for Marvel Champions: browse the card catalogue,
 build and validate decks, track the packs you own, read the rules and import
@@ -85,6 +92,8 @@ the device. English and Spanish, with more than 2,500 Swift Testing tests.
 
 🏗️ Swift 6, SwiftUI, Swift Testing
 
+![iOS Architecture Reference on iPhone, dark mode: the feature list and the detail of the Clean Architecture layers](assets/projects/ios-architecture.png)
+
 A real Xcode application that builds, not a diagram: a single app target
 inspired by Clean Architecture, with MVVM, typed Router navigation and manual
 factory-based dependency injection. 253 Swift Testing cases across 33 suites
@@ -99,6 +108,8 @@ hold the boundaries in place, with zero third-party package dependencies.
 ### AnvilCLI
 
 ⚒️ Go, Bubble Tea · generates Swift 6 projects
+
+![AnvilCLI in the terminal: the start screen, which offers to create an iOS project or install AI coding tools](assets/projects/anvil.png)
 
 A Go CLI that sets up iOS projects with Clean Architecture, MVVM, Router
 navigation and optional AI coding packs. Its transactional generator validates
@@ -117,6 +128,8 @@ every destination before it writes and never overwrites a file.
 ### agent-build
 
 🧱 TypeScript, Web Animations · no runtime dependencies
+
+![agent-build running: idle agent cursors complain in speech bubbles, the button is pressed, and the swarm rebuilds the page while the HUD says it is a simulation](assets/projects/agent-build.gif)
 
 A library that pokes fun at the viral "20 AI agents built my site" videos. One
 button hides the page and a simulated swarm of agent cursors rebuilds it, block

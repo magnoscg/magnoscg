@@ -82,6 +82,17 @@ const EXPECTED_CALENDAR = Object.freeze({
   generator: 'scripts/build-calendar.mjs',
 });
 
+// One real image per project, in the order the README shows them.
+const PROJECT_IMAGES = Object.freeze([
+  Object.freeze({ path: 'assets/projects/chollogas.png', sha256: 'bb38a41021a8e92906f1a68c2aa7ee1b179109f1a0b5c1340018d2fccbd8d295' }),
+  Object.freeze({ path: 'assets/projects/hilo.png', sha256: 'f629000fc199dae5ce59ce3512b7fd69459bc9fc8d71b18746d48d47e4358a57' }),
+  Object.freeze({ path: 'assets/projects/mulligan.png', sha256: 'd0adc6d656e04557e94e495bec4bda0ab39e94b2971bf255353a33e60921bbb7' }),
+  Object.freeze({ path: 'assets/projects/ios-architecture.png', sha256: '86f99d0ec171055f9be43f6e3ccb4b82d86a2cee2293b6e60c02ede01747aa09' }),
+  Object.freeze({ path: 'assets/projects/anvil.png', sha256: 'a20f1b040f10f9cdd989995dc9e9c8e56e1875a0daa198a932a749e53ee2ee0a' }),
+  Object.freeze({ path: 'assets/projects/agent-build.gif', sha256: 'cd555753a838d83d7960d245efa2b07c55f6389669e937d708c25f7427d64907' }),
+]);
+const MAX_PROJECT_IMAGE_BYTES = 4 * 1024 * 1024;
+
 const PROVENANCE_PATH = 'ASSET_PROVENANCE.md';
 const WORKFLOWS_DIR = '.github/workflows';
 const CHECK_WORKFLOW = 'profile-check.yml';
@@ -298,10 +309,10 @@ export async function validateProfile(root = process.cwd()) {
   }
 
   const images = references.filter(({ image }) => image);
-  if (images.length !== 3) {
+  if (images.length !== 3 + PROJECT_IMAGES.length) {
     errors.add(
-      'README.md: expected exactly three local images, the banner, the activity card '
-      + 'then the contribution calendar',
+      'README.md: expected exactly nine local images, the banner, the activity card, '
+      + 'the contribution calendar and one per project',
     );
   } else {
     if (images[0].target !== EXPECTED_BANNER.path) {
@@ -313,6 +324,11 @@ export async function validateProfile(root = process.cwd()) {
     if (images[2].target !== EXPECTED_CALENDAR.path) {
       errors.add(`README.md: calendar image must be ${EXPECTED_CALENDAR.path}`);
     }
+    PROJECT_IMAGES.forEach(({ path }, index) => {
+      if (images[index + 3].target !== path) {
+        errors.add(`README.md: project image ${index + 1} must be ${path}`);
+      }
+    });
   }
 
   if (/(?:file:\/\/|\/Users\/|\/home\/|[A-Za-z]:\\)/i.test(markdown)) {
@@ -392,12 +408,33 @@ export async function validateProfile(root = process.cwd()) {
     }
   }
 
+  for (const { path, sha256: expected } of PROJECT_IMAGES) {
+    try {
+      const data = await readFile(join(profileRoot, path));
+      if (data.length > MAX_PROJECT_IMAGE_BYTES) {
+        errors.add(`${path}: larger than ${MAX_PROJECT_IMAGE_BYTES} bytes`);
+      }
+      if (sha256(data) !== expected) {
+        errors.add(`${path}: SHA-256 must be ${expected}, found ${sha256(data)}`);
+      }
+    } catch {
+      errors.add(`${path}: file is missing or unreadable`);
+    }
+  }
+
   try {
     const provenance = await readFile(join(profileRoot, PROVENANCE_PATH), 'utf8');
     const normalizedProvenance = provenance.replace(/\s+/g, ' ');
     for (const statement of REQUIRED_PROVENANCE_STATEMENTS) {
       if (!normalizedProvenance.includes(statement.replace(/\s+/g, ' '))) {
         errors.add(`${PROVENANCE_PATH}: missing required statement "${statement}"`);
+      }
+    }
+    for (const { path, sha256: expected } of PROJECT_IMAGES) {
+      for (const statement of [`- Asset: \`${path}\`.`, `- Distributed SHA-256: \`${expected}\`.`]) {
+        if (!normalizedProvenance.includes(statement)) {
+          errors.add(`${PROVENANCE_PATH}: missing required statement "${statement}"`);
+        }
       }
     }
     if (/(?:file:\/\/|\/Users\/|\/home\/|[A-Za-z]:\\)/i.test(provenance)) {
